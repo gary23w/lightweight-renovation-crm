@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Response</title>
+    <link rel="icon" href="/static/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Prism CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" rel="stylesheet" />
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        .container {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-group mt-3">
+            <label for="server-response"><h1>Server Response:</h1></label>
+            <div class="alert alert-success" role="alert">
+                <!-- Change the class to language-json -->
+                <pre><code id="server-response" class="language-json">{{ response }}</code></pre>
+            </div>
+        </div>
+            <a href="{% if redirect == '' %}/admin{% else %}{{ redirect }}{% endif %}" class="btn btn-secondary float-right">Back</a>
+    </div>
+
+    <!-- Prism JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js"></script>
+    <script>
+        // Select the server-response element
+        const serverResponseElement = document.getElementById('server-response');
+        
+        // Log the JSON string to the console
+        console.log(serverResponseElement.textContent);
+        
+        try {
+            // Get the textContent, replace single quotes with double quotes, and trim whitespace
+            const responseText = serverResponseElement.textContent.replace(/'/g, "\"").trim();
+
+            // Parse the JSON, then stringify it with formatting
+            const formattedJson = JSON.stringify(JSON.parse(responseText), null, 2);
+            
+            // Set the text content of the server-response element to the formatted JSON
+            serverResponseElement.textContent = formattedJson;
+        } catch (error) {
+            console.error(error);
+        }
+    </script>
+</body>
+</html>

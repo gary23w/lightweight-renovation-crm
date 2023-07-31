@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Login</title>
+    <link rel="icon" href="static/icons/favicon.ico" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/styles/global.css" rel="stylesheet" type="text/css">
+    <style>
+    body {
+      {{ background_image }}
+    }
+
+    .lfbuilders-btn {
+      background-color: {{ button_background }};
+    }
+
+    .lfbuilders-btn:hover {
+      background-color: {{ button_background_hover }};
+    }
+
+    .cardbody-color {
+      background-color: {{ card_background }};
+      border: 1.5px solid {{ card_border }};
+    }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3">
+                <div class="card cardbody-color my-5">
+                    <form method="post" class="card-body p-lg-5">
+                        <div class="text-center">
+                            <img src="{{ logo }}" class="img-fluid my-5"
+                                alt="profile">
+                        </div>
+                        <div class="mb-3">
+                           <label for="username" class="form-label">USERNAME:</label>
+                            <input type="text" name="u" class="form-control" id="username" placeholder="username" required="required">
+                        </div>
+                        <div class="mb-3">
+                           <label for="password" class="form-label">PASSWORD:</label>
+                            <input type="password" name="p" class="form-control" id="password" placeholder="password" required="required">
+                        </div>
+                        <button type="submit" class="lfbuilders-btn px-5 mb-5">{{ login_text }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if error %}
+          <div class="alert alert-danger mt-3" role="alert">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>

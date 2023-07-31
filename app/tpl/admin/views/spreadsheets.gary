@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Upload Spreadsheet</title>
+    <link rel="icon" href="/static/icons/favicon.ico" type="image/x-icon">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <style>
+    .container {
+        max-width: 800px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    @media (max-width: 576px) {
+        .form-group label {
+            font-size: 14px;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+    <a href="/admin" class="btn btn-secondary mb-3">Back</a>
+    <hr />
+        <h1 class="text-center">Upload Spreadsheet</h1>
+        <form action="{{ url_for('admin.upload_spreadsheets_single_route') }}" method="post" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+                <label for="spreadsheetFile">Select an XLS or XLSX file:</label>
+                <input type="file" class="form-control-file" id="spreadsheetFile" name="spreadsheetFile" accept=".xls,.xlsx" required>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary float-right mt-3 mb-3">Upload</button>               
+            </div>
+        </form>
+        <div class="mt-5">
+            <h2 class="text-center">Instructions</h2>
+            <p>Please ensure your spreadsheet is structured as follows:</p>
+            <ul>
+                <li>Column 1: Contract Number (up to 64 characters)</li>
+                <li>Column 2: Contact Name (up to 64 characters)</li>
+                <li>Column 3: Address (up to 120 characters)</li>
+                <li>Column 4: City (up to 64 characters)</li>
+                <li>Column 5: Phone Number (up to 20 characters)</li>
+                <li>Column 6: Description (up to 120 characters)</li>
+                <li>Column 7: Date (up to 30 characters)</li>
+                <li>Column 8: Email (can be empty)</li>
+            </ul>
+            <p>Ensure that the columns are in the correct order. If it does not meet requirements, it will not be uploaded.</p>
+            <p>The filename (excluding the extension) will be used as the Salesman's name.</p>
+            <p>i.e. "Daniel.xlsx" will be used as the Salesman's name "Daniel"</p>
+            <p>Note: Rows that are completely empty will be skipped.</p>
+            <p>Note2: Be aware that there is no way to check for duplicates right now. If you upload the same spreadsheet twice, it will be added twice.</p>
+        </div>
+    </div>
+</body>
+
+</html>

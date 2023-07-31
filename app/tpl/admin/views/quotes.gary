@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'admin/head/head_filter.gary' %}
+</head>
+<body class="da-screen">
+{% include 'admin/utils/flashed.gary' %}
+<div class="container">
+<hr/>
+<div class="wrap">
+  <div class="container">
+    <nav class="navbar navbar-light">
+      <button class="btn btn-primary" style="width: 49%; margin-bottom: 15px;"><a style="color: white;" href="/admin">Dashboard</a></button>
+      <button id="btn btn-primary" class="btn btn-primary" style="width: 49%; margin-bottom: 15px;"><a style="color: white;" href="/admin/quoting_tool">Tool</a></button>
+    </nav>
+  </div>  
+    <div class="container">
+        {% for quote in quotes %}
+        <div class="card my-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ quote.job_title }}</h5>
+                <hr />
+                <p class="card-text">{{ quote.job_description }}</p>
+                <p class="card-text">Quote Amount: {{ quote.quote_amount }}</p>
+                <p class="card-text">Customer Name: {{ quote.customer_name }}</p>
+                <p class="card-text">Customer Address: {{ quote.customer_address }}</p>
+                <p class="card-text">Customer Email: <a href="mailto:{{ quote.customer_email }}">{{ quote.customer_email }}</a></p>
+                <p class="card-text">Customer Phone: <a href="tel:{{ quote.customer_phone }}">{{ quote.customer_phone }}</a></p>
+                <p class="card-text">Your Email: <a href="mailto:{{ quote.your_email }}">{{ quote.your_email }}</a></p>
+                <p class="card-text">Your Phone: <a href="tel:{{ quote.your_phone }}">{{ quote.your_phone }}</a></p>
+                <p class="card-text">Notes: {{ quote.notes }}</p>
+                 <button class="btn btn-primary float-left mt-5" onclick="resendEmail({{ quote.id }})">Resend Email</button>
+                 <button class="btn btn-danger float-right mt-5" onclick="deleteQuote({{ quote.id }})">Delete</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+<script>
+    function deleteQuote(id) {
+      $.ajax({
+        url: '/admin/delete_quote/' + id, 
+        type: 'POST',
+        success: function(result) {
+          location.reload();
+        },
+        error: function(err) {
+          // Handle error
+          console.log(err);
+        }
+      });
+    }
+    function resendEmail(id) {
+      $.ajax({
+        url: '/admin/resend_quote/' + id, 
+        type: 'POST',
+        success: function(result) {
+          location.reload();
+        },
+        error: function(err) {
+          // Handle error
+          console.log(err);
+        }
+      });
+    }
+</script>
+</body>
+</html>

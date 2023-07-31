@@ -1,0 +1,61 @@
+{
+  "version": "v1.0.0",
+  "name": "Professional Services Inc.",
+  "short_name": "Professional Services Inc.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_image_login": "https://probackgrounds.img/login-background.png",
+  "logo": "https://prologos.img/logo.png",
+  "login_design": {
+    "button_background": "#2b8d93",
+    "button_background_hover": "#27c0c8",
+    "button_text": "LOGIN",
+    "card_color_background": "rgba(132, 208, 212, 0.9)",
+    "card_border_color": "#27c0c8"
+  },
+  "website": "https://professional_services_inc.com",
+  "office_phone": "1-800-776-4521",
+  "enable_pwa": true,
+  "support_email": "support@professional_services_inc.com",
+  "info_email": "info@professional_services_inc.com",
+  "email_hyperlink": "@professional_services_inc.com",
+  "users": [
+    {
+      "username": "g.hawkins",
+      "password": "SecuredPassword123!",
+      "call_sign": "GH",
+      "email": "g.hawkins@professional_services_inc.com",
+      "phone": "1-800-776-4521",
+      "admin": true
+    },
+    {
+      "username": "d.richards",
+      "password": "SecureCloudsRun@123",
+      "call_sign": "DR",
+      "email": "d.richards@professional_services_inc.com",
+      "phone": "1-800-776-4521",
+      "admin": true
+    },
+    {
+      "username": "s.mitchell",
+      "password": "SecurePassword!234",
+      "call_sign": "SM",
+      "email": "s.mitchell@professional_services_inc.com",
+      "phone": "1-800-776-4521",
+      "admin": false
+    },
+    {
+      "username": "installer",
+      "password": "CrazyChickenDances@123",
+      "call_sign": "Installer",
+      "email": "installer@professional_services_inc.com",
+      "phone": "1-800-776-4521",
+      "admin": false
+    }
+  ],
+  "sib_api_key": "SEND IN BLUE API KEY",
+  "services": [
+    { "blog": "https://blog.professional_services_inc.com" },
+    { "website": "https://www.professional_services_inc.com" }
+  ]
+}

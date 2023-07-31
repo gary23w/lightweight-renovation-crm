@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'admin/head/head_tables.gary' %}
+</head>
+<body class="da-screen">
+{% include 'admin/utils/flashed.gary' %}
+<div class="container">
+<div class="wrap">
+ <div class="container">
+  <hr/>
+    <nav class="navbar navbar-light">
+      <button class="btn btn-primary" style="width: 49%; margin-bottom: 15px;"><a style="color: white;" href="/admin">Dashboard</a></button>
+      <button id="downloadButton" class="btn btn-primary" style="width: 49%; margin-bottom: 15px;">Download</button>
+    </nav>
+  </div>
+  <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customerModalLabel">Customer Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Customer details will be inserted here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive" id="mainTable" style="display: none;">
+    <div class="table-wrapper">
+      <table id="customerTable">
+      <caption>Customers</caption>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Contract Number</th>
+          <th>Salesman</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Description</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for customer in customers %}
+        <tr>
+          <td data-label="ID">{{ customer.id }}</td>
+          <td data-label="CONTRACT">{{ customer.contract_number }}</td>
+          <td data-label="SALESMAN">{{ customer.salesman }}</td>
+          <td data-label="NAME">{{ customer.name }}</td>
+          <td data-label="ADDRESS">
+            <a href="https://www.google.com/search?q={{ customer.address | urlencode }}" target="_blank">
+              {{ customer.address }}
+            </a>
+          </td>
+          <td data-label="CITY">{{ customer.city }}</td>
+          <td data-label="PHONE"><a href="tel:{{ customer.phone }}">{{ customer.phone }}</a></td>
+          <td data-label="EMAIL"><a href="mailto:{{ customer.email }}">{{ customer.email }}</a></td>
+          <td data-label="DESCRIPTION">{{ customer.description }}</td>
+          <td data-label="DATE">{{ customer.date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  </div>
+</div>
+</body>
+</html>

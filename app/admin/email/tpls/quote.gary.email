@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+            box-shadow: 0px 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .container img {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .delv-head {
+            font-size: 24px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .delv-h3, .delv-h4 {
+            font-size: 20px;
+            color: #333;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .delv-desc {
+            padding: 10px;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .quote-info, .customer-info {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .delv-speach {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .delv-speach p {
+            margin-bottom: 10px;
+        }
+
+        .delv-list {
+            padding-left: 20px;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .delv-list-item {
+            margin-bottom: 10px;
+        }
+
+        .delv-close, .delv-comp {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .delv-comp {
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="quote-info">
+        <img src="{{ logo_main }}" height="42" width="112">
+        <p class="delv-head">Quote for your:</p>
+        <h3 class="delv-h3">{{ job_title }}</h3>
+        <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
+        <h4 class="delv-head">Quote Amount:</h4>
+        <h4 class="delv-h4">${{ quote_amount }}</h4>
+        <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
+        <h4 class="delv-head">Quote Date:</h4>
+        <h4 class="delv-h4">{{ quote_date }}</h4>
+        <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
+        <h4 class="delv-head">Quote Expiry:</h4>
+        <h4 class="delv-h4">{{ quote_expiry }}</h4>
+        <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
+        <p class="delv-head">Job Description:</p>
+        <p class="delv-desc">{{ job_description }}</p>
+        <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
+    </div>
+
+    <div class="customer-info">
+        <p class="delv-speach">Howdy, {{ customer_name }}</p>
+
+        <div class="delv-speach">
+            <p>Thank you for considering {{ company_name }} for your RENO. We appreciate your time and the opportunity to present you with our proposed quote.</p>
+
+            <p>We have estimated the job to cost ${{ quote_amount }}. This is based on the information you've provided us and is an initial estimate.</p>
+
+            <p>Please note that the final cost may vary. It could be higher or lower, depending on the actual circumstances and requirements of the job.</p>
+
+            <p>If our proposed quote doesn't fit your budget or scope, we're more than willing to discuss and provide more affordable options. Our goal is to provide you with the best service within your budget.</p>
+
+            <p>We look forward to potentially working with you!</p>
+        </div>
+
+        {{ sendNotes }}
+
+        <ul class="delv-list">
+            {{ notes }}
+        </ul>
+
+        <p class="delv-speach">
+            We look forward to the opportunity to work with you and bring your vision to life.
+        </p>
+        <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
+        <p class="delv-close">Best regards,</p>
+        <p class="delv-close">{{ company_name }} Representative</p>
+        <p class="delv-comp"><a href="tel:{{ your_phone }}">{{ your_phone }}</a></p>
+        <p class="delv-comp">{{ company_website }}</p>
+        <p class="delv-comp">{{ info_email }}</p>
+    </div>
+</div>
+</body>
+</html>

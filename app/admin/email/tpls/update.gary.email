@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 10px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 1px dashed #ccc;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .container img {
+        display: block;
+        margin-bottom: 15px;
+      }
+
+      .delv-head {
+        font-size: 24px;
+        font-weight: bold;
+        color: #444;
+        margin-bottom: 20px;
+      }
+
+      .delv-h3,
+      .delv-h4 {
+        font-size: 20px;
+        color: #333;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-weight: normal;
+      }
+
+      .delv-desc {
+        padding: 10px;
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        text-align: justify;
+      }
+
+      .quote-info,
+      .customer-info {
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .delv-speach {
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        text-align: justify;
+      }
+
+      .delv-speach p {
+        margin-bottom: 10px;
+      }
+
+      .delv-list {
+        padding-left: 20px;
+        color: #555;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .delv-list-item {
+        margin-bottom: 10px;
+      }
+
+      .delv-close,
+      .delv-comp {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      .delv-comp {
+        font-size: 14px;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="{{ logo_main }}" height="42" width="112" />
+      <p class="delv-head">Current Job Updates</p>
+      <hr style="border: 1px solid #ccc; margin-bottom: 20px" />
+
+      {{ job_updates }}
+
+      <hr
+        style="border: 1px solid #ccc; margin-bottom: 20px; margin-top: 20px"
+      />
+
+      <p class="delv-speach">
+        Calling all folks in distress! It's time for the legendary Garrett, cape
+        flowing and charm overflowing, to swoop in and save the day! Got pesky
+        tasks that won't quit bugging you? Confused like a squirrel in a maze?
+        Or just craving a good belly laugh? Look no further, 'cause I'm here to
+        be your superhero! When you're feeling stuck or blue, just holler my
+        name, and I'll be there faster than you can say'supercalifragilisticexpialidocious'!
+         And hey, don't fret;So, let's shake off those worries, slap on a grin, and let the
+        laughter flow! Garrett to the rescue - making your day brighter, one
+        joke at a time!
+      </p>
+      <p class="delv-speach">😉 Keep up the fantastic work!</p>
+      <p class="delv-speach">Your friendly neighborhood Garrett 🦸‍♂️</p>
+      <p class="delv-comp">{{ company_website }}</p>
+      <p class="delv-comp">{{ info_email }}</p>
+    </div>
+  </body>
+</html>

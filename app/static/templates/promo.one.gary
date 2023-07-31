@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .delv-head {
+        font-size: 24px;
+        line-height: 1.2;
+        text-transform: none;
+        font-weight: 800;
+        margin-bottom: 25px;
+      }
+
+      .delv-speach {
+        font-size: 18px;
+        line-height: 1.4;
+        text-transform: none;
+        font-weight: 400;
+      }
+
+      .delv-close {
+        font-size: 16px;
+        line-height: 1.6;
+        text-transform: none;
+        font-weight: 500;
+      }
+
+      .delv-comp {
+        font-size: 16px;
+        line-height: 1.6;
+        text-transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="<YOUR LOGO URL>" height="42" width="112" />
+      <p class="delv-head">Howdy,</p>
+
+      <p class="delv-speach">
+        We're thrilled to share with you an exclusive offer from the team here at <YOUR COMPANY>. As a token of our gratitude for your continued support, we're providing a 15% discount on any of our construction or renovation services.
+      </p>
+
+      <p class="delv-speach">
+        Whether you're considering a small upgrade to freshen up your home or planning a comprehensive renovation project, our team of experts is ready to bring your vision to life. And with this special discount, there's never been a better time to transform your space.
+      </p>
+
+      <p class="delv-speach">
+        To claim your 15% discount, simply visit our website at <a href="<WEBSITE URL>">THE HYPER LINK</a> and the discount will automatically be applied to your next project.
+      </p>
+
+      <p class="delv-speach">
+        Your trust and satisfaction have always been at the heart of what we do at <YOUR COMPANY>. Thank you for allowing us to serve you, and we look forward to helping you create the space of your dreams.
+      </p>
+
+      <p class="delv-speach">
+        Here's to building a better home, together.
+      </p>
+
+      <p class="delv-close">Best regards,</p>
+      <p class="delv-close">garrett is such a bro</p>
+      <p class="delv-comp">YOUR COMPANY PHONE NUMBER</p>
+    </div>
+  </body>
+</html>

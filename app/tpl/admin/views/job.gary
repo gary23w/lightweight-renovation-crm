@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'admin/head/head_job.gary' %}
+</head>
+<body class="da-screen">
+{% include 'admin/utils/flashed.gary' %}
+<!-- Mode Information Modal -->
+<div class="modal fade" id="modeModal" tabindex="-1" role="dialog" aria-labelledby="modeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modeModalLabel">Mode Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-secondary">
+            The mode represents what you see. If you are in USER mode then you are only seeing jobs from your account. this helps maintain privacy between each salesman.
+        </p>
+        <p class="text-info">
+            <b>NOTE:</b> Your jobs are always anonymous across the backend.
+            <p>Only you can see your jobs and only the admin can see all jobs.</p>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="wrap mb-3" id="accordionADD">
+        <div class="card card-header mb-3 mt-3">
+            <nav class="navbar">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="container customContainer1 mt-3 mb-3">
+                         <div class="card-header d-flex flex-column flex-md-row justify-content-around align-items-center">
+                            <a href="/admin" class="btn btn-primary w-100 p-3 m-3">Back</a>
+                            <h4 class="text-center flex-grow-1 mb-0 w-100"></h4>
+                            <a href="logout" class="btn btn-danger w-100 p-3 m-3">Logout</a>
+                        </div>
+
+                        <div class="card-header d-flex flex-column flex-md-row justify-content-around align-items-center">
+                            <button class="p-3 rounded shadow-sm bg-info text-white w-100 text-center btn btn-info m-3" data-toggle="modal" data-target="#modeModal"><b>Mode:</b> {{ mode }}</button>
+                            <button class="p-3 rounded shadow-sm bg-info text-white w-100 text-center btn btn-info m-3" id="downloadCurrentJobs"><b>Download Jobs</b></button>
+                            <button class="add-job p-3 rounded shadow-sm bg-info text-white w-100 text-center m-3" role="button" data-toggle="collapse" data-target="#collapseADD" aria-expanded="true" aria-controls="collapseADD" style="cursor: pointer;">
+                                Add Job
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container d-flex justify-content-end align-items-center mb-3 mt-3">
+    <button id="sortJobsButton" class="btn btn-primary">Sort Jobs</button>
+</div>
+<div class="container">
+    <div id="collapseADD" class="collapse" aria-labelledby="headingADDJOB" data-parent="#accordionADD">
+        <form id="addJobForm" action="{{ url_for('admin.add_job_route') }}" method="post">
+            <div class="container-fluid">
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="contract_number" placeholder="Contract Number" required></div></div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <select name="salesman" class="form-control form-select" required>
+                        <option value="">-- Salesman --</option>
+                        {{ salesman_options }}
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="customer" placeholder="Customer" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="address" placeholder="Address" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="city" placeholder="City" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="phone" placeholder="Phone" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="description" placeholder="Description" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="date" class="form-control" id="date" name="date" placeholder="Date" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="email" class="form-control" id="email" name="email" placeholder="Email" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="selling_price" placeholder="Selling Price" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="cost" placeholder="Cost" required></div></div>
+            <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="installer" placeholder="Installer" required></div></div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <select name="status" class="form-control form-select" required>
+                        <option value="">Select Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="ongoing">OnGoing</option>
+                        <option value="complete">Complete</option>
+                        <option value="issues">Issues</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3"><div class="col-12"><textarea class="form-control" rows="5" name="notes" placeholder="Notes" maxlength="240" required></textarea></div></div>
+            <div class="row mt-3 mb-3"><div class="col-12"><button type="submit" class="btn btn-primary float-right">Add Job</button></div></div>
+        </div>
+        </form>
+    </div> 
+    <div class="row job-box">
+        {% for job in jobs %}
+        <div class="col-md-4 job-case"> 
+            <div class="wrap">
+                <div class="job-card card mb-3">                
+                    <div class="card bg-light">
+                        <div class="card-header text-center">
+                            <div class="h4 text-secondary">{{ job.address }}</div>
+                            <div class="h4 font-weight-bold"><b>Status:</b> {{ job.status }}</div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">Job Details:</h5>
+                            <ul class="list-group list-group-flush base-data">
+                                <li class="list-group-item"><b>Contract Number:</b> {{ job.contract_number }}</li>
+                                <li class="list-group-item"><b>Salesman:</b> {{ job.salesman }}</li>
+                                <li class="list-group-item"><b>Customer:</b> {{ job.customer }}</li>
+                                <li class="list-group-item" data-date-complex="{{ job.date }}"><b>Date Posted:</b> {{ job.date }}</li>
+                            </ul>
+                            <hr />
+                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#jobModal{{ loop.index }}">View More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Details Modal -->
+            <div class="modal fade" id="jobModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel{{ loop.index }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="jobModalLabel{{ loop.index }}">Job Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details{{ loop.index }}" role="tab" aria-controls="details" aria-selected="true">Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit{{ loop.index }}" role="tab" aria-controls="edit" aria-selected="false">Edit</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="details{{ loop.index }}" role="tabpanel" aria-labelledby="details-tab">
+                                      <!-- Job details here -->
+                                      <div class="card bg-light p-3">
+                                        <p><strong>Address:</strong> {{ job.address }}</p>
+                                        <p><strong>City:</strong> {{ job.city }}</p>
+                                        <p><strong>Phone:</strong> <a href="tel:{{ job.phone }}">{{ job.phone }}</a></p>
+                                        <p><strong>Description:</strong> {{ job.description }}</p>
+                                        <p><strong>Date:</strong> {{ job.date }}</p>
+                                        <p><strong>Email:</strong> <a href="mailto:{{ job.email }}">{{ job.email }}</a></p>
+                                        <p><strong>Selling Price:</strong> {{ job.selling_price }}</p>
+                                        <p><strong>Cost:</strong> {{ job.cost }}</p>
+                                        <p><strong>Installer:</strong> {{ job.installer }}</p>
+                                        <p><strong>Status:</strong> {{ job.status }}</p>
+                                        <!-- disabled textarea -->
+                                        <label for="notes"><b>Notes:</b></label>
+                                        <textarea class="form-control" rows="5" name="notes" placeholder="Notes" maxlength="240" disabled>{{ job.notes }}</textarea>
+                                        <hr />
+                                        <form class="float-right" method="post" action="{{ url_for('admin.delete_job_route') }}">
+                                            <input type="hidden" name="id" value="{{ job.id }}">
+                                            <input type="hidden" name="email" value="{{ job.email }}">
+                                            <div class="d-flex justify-content-end align-items-center">
+                                                <label for="email" class="mb-0"><b>Send Exit Email?</b></label>
+                                                <input type="checkbox" name="exitEmail" value="yes" class="ml-2">
+                                                <button type="submit" class="btn btn-danger ml-2">Remove Job</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="edit{{ loop.index }}" role="tabpanel" aria-labelledby="edit-tab">
+                                    <form action="{{ url_for('admin.edit_job_route') }}" method="post">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="id" value="{{ job.id }}">
+
+                                            <div class="form-group">
+                                                <label for="phone">Phone</label>
+                                                <input type="text" class="form-control" name="phone" value="{{ job.phone }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <input type="text" class="form-control" name="description" value="{{ job.description }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="date">Date</label>
+                                                <input type="date" class="form-control" name="date" value="{{ job.date }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" name="email" value="{{ job.email }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="selling_price">Selling Price</label>
+                                                <input type="text" class="form-control" name="selling_price" value="{{ job.selling_price }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="cost">Cost</label>
+                                                <input type="text" class="form-control" name="cost" value="{{ job.cost }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="installer">Installer</label>
+                                                <input type="text" class="form-control" name="installer" value="{{ job.installer }}" required>
+                                            </div>
+
+                                                <div class="form-group">
+                                                    <label for="status">Status</label>
+                                                    <select name="status" class="form-control" required>
+                                                        <option value="">Select Status</option>
+                                                        <option value="pending" {% if job.status == 'pending' %} selected {% endif %}>Pending</option>
+                                                        <option value="ongoing" {% if job.status == 'ongoing' %} selected {% endif %}>OnGoing</option>
+                                                        <option value="complete" {% if job.status == 'complete' %} selected {% endif %}>Complete</option>
+                                                        <option value="issues" {% if job.status == 'issues' %} selected {% endif %}>Issues</option>
+                                                    </select>
+                                                </div>
+
+                                            <div class="form-group">
+                                                <label for="notes">Notes</label>
+                                                <textarea class="form-control" rows="5" name="notes" required>{{ job.notes }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if loop.index is divisibleby 3 and not loop.last %} 
+        </div>
+        <div class="row job-box">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+</div>
+</body>
+</html>

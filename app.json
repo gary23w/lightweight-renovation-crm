@@ -1,0 +1,21 @@
+{
+    "name": "Gary's Heroku CRM",
+    "description": "Deploy to Heroku",
+    "keywords": ["python", "flask", "docker"],
+    "website": "https://lfbuilders.ca",
+    "repository": "https://github.com/gary23w/lfbuilders-rest-api",
+    "env": {
+      "FLASK_ENV": {
+        "description": "The environment to run Flask in.",
+        "value": "production"
+      },
+      "HEROKU_ENV": {
+        "description": "Indicates that the app is running on Heroku.",
+        "value": "True"
+      }
+    },
+    "image": "Dockerfile",
+    "addons": [
+      "heroku-postgresql:mini"
+    ]
+  }

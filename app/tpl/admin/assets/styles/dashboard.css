@@ -1,0 +1,175 @@
+.blog-header {
+  padding: 2rem 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-main {
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 15px;
+}
+
+.blog-post {
+  margin-top: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.blog-sidebar {
+  margin-right: auto;
+  margin-left: auto;
+  height: 95%;
+  padding: 0 15px;
+  border: 1px solid #e5e5e5;
+}
+
+.navbar {
+  border: none !important;
+  background-color: white;
+  border: 1px solid #e5e5e5;
+}
+
+.nav-item a {
+  float: right;
+}
+
+.responsive-button {
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.responsive-button:hover {
+  transform: scale(1.1);
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.responsive-button:active {
+  background-color: #4cae4c;
+  border-color: #398439;
+}
+
+.link-style:link,
+.link-style:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.link-style:hover,
+.link-style:active {
+  color: white;
+  text-decoration: none;
+}
+
+.notifications {
+  width: 90%;
+}
+
+.notification-shadow {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.notification-button {
+  width: 100%;
+  transition: all 0.3s ease;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.notification-button:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.notification-button:focus {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.notification-button:active {
+  color: #003367;
+}
+
+.hasNotification {
+  position: relative;
+  background-color: #fff;
+}
+
+.hasNotification::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  border: 5px solid #ffc107;
+  animation: circleBorder 5s linear infinite;
+}
+
+.hasNotification:active::after {
+  animation: circleBorder 2s linear infinite;
+}
+
+.toast {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 9999;
+}
+
+.fab {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 18px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: black;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  border: 0.5px solid grey;
+  opacity: 0.75;
+  background-color: #f7f7f7;
+}
+
+.shake {
+  animation: shakebackandforth 0.5s linear infinite;
+}
+
+@keyframes shakebackandforth {
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(2px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes circleBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-sidebar {
+    margin-top: 0;
+  }
+  .fab {
+    display: block;
+  }
+}

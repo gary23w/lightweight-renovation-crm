@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .delv-head {
+        font-size: 24px;
+        line-height: 1.2;
+        text-transform: none;
+        font-weight: 800;
+        margin-bottom: 25px;
+      }
+
+      .delv-speach {
+        font-size: 18px;
+        line-height: 1.4;
+        text-transform: none;
+        font-weight: 400;
+      }
+
+      .delv-close {
+        font-size: 16px;
+        line-height: 1.6;
+        text-transform: none;
+        font-weight: 500;
+      }
+
+      .delv-comp {
+        font-size: 16px;
+        line-height: 1.6;
+        text-transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="{{ logo_main }}"
+        height="42"
+        width="112"
+      />
+      <p class="delv-head">One last thing,</p>
+
+      <p class="delv-speach">
+        We hope your renovation project was a resounding success and brought your vision to life. 
+        We would like to take this opportunity to thank you for choosing {{ company_name }} to make it happen.
+      </p>
+
+      <p class="delv-speach">
+        Your trust and cooperation made the journey smooth and rewarding. We hope you are enjoying the fruits of our labor as much as we enjoyed bringing it to fruition.
+      </p>
+
+      <p class="delv-speach">
+        It was a pleasure working with you, and we look forward to assisting you with any future projects you may have. We're always here to turn your construction dreams into reality.
+      </p>
+
+      <p class="delv-speach">
+        Thank you again for your trust and support. We look forward to the prospect of working together again in the future.😊
+      </p>
+
+      <p class="delv-close">Best regards,</p>
+      <p class="delv-close">{{ company_name }}</p>
+      <p class="delv-comp">{{ office_phone }}</p>
+    </div>
+  </body>
+</html>

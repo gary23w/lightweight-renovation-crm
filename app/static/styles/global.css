@@ -1,0 +1,58 @@
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.lfbuilders-btn {
+  font-family: "Montserrat", Sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  fill: #ffffff;
+  color: #ffffff;
+  background-color: #2b8d93;
+  border-radius: 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding: 15px 30px;
+  border: none !important;
+}
+
+.lfbuilders-btn:hover {
+  background-color: #27c0c8;
+  color: #ffffff;
+}
+
+.cardbody-color {
+  background-color: rgba(132, 208, 212, 0.9);
+  border: 1.5px solid #27c0c8;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.6px);
+  -webkit-backdrop-filter: blur(7.6px);
+}
+
+label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000;
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+}
+
+input::placeholder {
+  opacity: 0.5;
+}
+
+.toast {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+}

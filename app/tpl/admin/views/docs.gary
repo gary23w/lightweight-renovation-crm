@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'admin/head/head_main.gary' %}
+</head>
+<body>
+{% include 'admin/utils/flashed.gary' %}
+<div class="container mt-5">
+    <div class="accordion" id="endpointAccordion">
+        <div class="card">
+            <div class="card-header" id="loginHeader">
+                <h2>
+                        DOCS
+                </h2>
+                <hr />
+                <p><strong>TODO:</strong> detail endpoints.</p>
+            </div>
+            <div class="container">
+                    <div class="card-body">
+                        <h3>GET /</h3>
+                        <p>This is the primary endpoint of the application which serves the login page.</p>
+                        <p><strong>Request parameters:</strong> None.</p>
+                        <p><strong>Response:</strong> Login page.</p>
+                        <p><strong>Errors:</strong> None.</p>
+                        <hr>
+
+                        <h3>POST /</h3>
+                        <p>This endpoint handles the login requests. Upon successful login, the user is redirected to the admin dashboard.</p>
+                        <p><strong>Request parameters:</strong></p>
+                        <ul>
+                            <li>`u`: Username of the user.</li>
+                            <li>`p`: Password of the user.</li>
+                        </ul>
+                        <p><strong>Response:</strong> Redirects to `/admin` upon successful login, serves the login page with error message upon unsuccessful login.</p>
+                        <p><strong>Errors:</strong></p>
+                        <ul>
+                            <li>400: Bad Request - In case of invalid username or password.</li>
+                        </ul>
+                        <!-- example -->
+                        <p><strong>Example:</strong></p>
+                        <pre><code class="language-bash">curl -c cookies.gary -d "u=username&p=password" http://localhost:5000/</code></pre>
+                        <hr>
+
+                        <h3>GET /admin</h3>
+                        <p>This endpoint provides the admin dashboard. This endpoint is authenticated, meaning you need to be logged in as an admin to access it.</p>
+                        <hr>
+
+                        <h3>POST /admin/logout</h3>
+                        <p>This endpoint logs out the current user. This endpoint is authenticated.</p>
+                        <hr>
+
+                        <h3>POST /admin/add_customer</h3>
+                        <p>This endpoint adds a new customer. This endpoint is authenticated and requires a form body with details about the customer. It will flash a message about the operation's success or failure and redirect to the admin dashboard.</p>
+                        <hr>
+
+                        <h3>POST /admin/delete_customer/&lt;int:id&gt;</h3>
+                        <p>This endpoint deletes a customer specified by the id. This endpoint is authenticated and will return a JSON response with details about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>POST /admin/create_table</h3>
+                        <p>This endpoint creates a new table in the database. This endpoint is authenticated and returns a JSON response with details about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>GET /admin/all_customers</h3>
+                        <p>This endpoint retrieves all customers. This endpoint is authenticated and returns a JSON response with the list of customers or an error message.</p>
+                        <hr>
+
+                        <h3>GET /admin/custom_table</h3>
+                        <p>This endpoint retrieves a custom table of customers based on passed parameters. This endpoint is authenticated and returns a JSON response with the custom list of customers or an error message.</p>
+                        <hr>
+
+                        <h3>POST /admin/delete_table</h3>
+                        <p>This endpoint deletes a table in the database. This endpoint is authenticated and returns a response indicating the success or failure of the operation.</p>
+                        <hr>
+
+                        <h3>POST /admin/upload_spreadsheets_single</h3>
+                        <p>This endpoint allows for a single spreadsheet upload. This endpoint is authenticated and will process the uploaded spreadsheet file asynchronously.</p>
+                        <hr>
+
+                        <h3>POST /admin/add_job</h3>
+                        <p>This endpoint adds a new job. This endpoint is authenticated and requires a form body with details about the job. It will return a message about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>POST /admin/edit_job</h3>
+                        <p>This endpoint edits an existing job. This endpoint is authenticated and requires a form body with details about the updated job. It will return a message about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>POST /admin/delete_job</h3>
+                        <p>This endpoint deletes a job specified by the id. This endpoint is authenticated and requires a form body. It will return a message about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>GET /admin/download_jobs</h3>
+                        <p>This endpoint allows for the downloading of jobs data in CSV format. This endpoint is authenticated and will return a CSV file.</p>
+                        <hr>
+
+                        <h3>POST /admin/quoting_tool_route</h3>
+                        <p>This endpoint sends a quote email. This endpoint is authenticated and requires a form body with details about the quote. It will return a message about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>GET /admin/get_quotes</h3>
+                        <p>This endpoint retrieves all quotes. This endpoint is authenticated and returns a list of quotes or an error message.</p>
+                        <hr>
+
+                        <h3>POST /admin/delete_quote/&lt;int:id&gt;</h3>
+                        <p>This endpoint deletes a quote specified by the id. This endpoint is authenticated and will return a JSON response with details about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>POST /admin/resend_quote/&lt;int:id&gt;</h3>
+                        <p>This endpoint resends a quote email for a quote specified by the id. This endpoint is authenticated and will return a message about the operation's success or failure.</p>
+                        <hr>
+
+                        <h3>GET /admin/health</h3>
+                        <p>This endpoint provides a health check for the application. This endpoint is authenticated and will return a response indicating the application's health status.</p>
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

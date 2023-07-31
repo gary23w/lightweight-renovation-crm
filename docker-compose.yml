@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:13.3-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: USER
+      POSTGRES_PASSWORD: PASSWORD
+      POSTGRES_DB: DATABASE
+    networks:
+      - api_db_network
+  api:
+    build: .
+    command: python3 run.py
+    volumes:
+      - .:/app
+    ports:
+      - 8080:8080
+    networks:
+      - api_db_network
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db
+
+networks:
+  api_db_network:
+    driver: bridge

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include 'admin/head/head_main.gary' %}
+</head>
+<body>
+{% include 'admin/utils/flashed.gary' %}
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasGary" aria-labelledby="offcanvasGaryLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasGaryLabel">Actions</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                          <div class="card card-body">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.create_table_route') }}" method="post" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Initialize Database</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.quoting_tool') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Quoting Tool</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.get_quote_list') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Old Quotes</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.customers') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">View Customer List</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.single_table') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Filter Customer Table</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.upload_spreadsheets_route') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Upload Data Spreadsheet</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.email_promo_main') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Send Email Promotion</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.add_notifications') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Manage Notifications</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.health') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Check System Health</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.delete_table_route') }}" method="post" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Delete Database</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <form action="{{ url_for('admin.deploy_sms_promo') }}" method="get" enctype="multipart/form-data">
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info" disabled>Activate SMS Promotion(subscription required)</button>
+                        </form>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <button class="rounded shadow-sm bg-danger text-white w-100 text-center btn btn-danger mt-3 mb-3 responsive-button" type="button">
+                        <a class="text-white link-style" href="logout">Logout</a>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      <div class="container">
+        <header class="blog-header">
+            <nav class="navbar navbar-expand-lg navbar-light p-3">
+                <a class="navbar-brand" href="#">{{ company_name }}</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                  aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ml-auto">
+                    <hr />
+                         <div class="container">
+                            <button type="button" class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn btn-primary mt-3 mb-3 responsive-button" data-toggle="modal" data-target="#aboutModal">
+                              About
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="aboutModalLabel">About this platform</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>You are currently interfacing with our advanced backend system, powered by Flask. This system provides efficient and secure access to our database through a REST API, enabling third-party interactions.</p>
+                                    <p>The REST API allows you to interact using command-line interfaces like the terminal, utilizing tools such as cURL for sending and receiving data. It's designed with flexibility in mind to cater to various client needs.</p>
+                                    <p>Meanwhile, the user interface you're experiencing is designed with Flask templates, Bootstrap, and various JavaScript libraries. These technologies ensure that you receive up-to-the-minute data and can interact with the system in a user-friendly and responsive manner.</p>
+                                    <p>We are planning to provide comprehensive documentation in the future to further facilitate your interaction with our system, whether you're using the web interface or interacting programmatically via the API.</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="https://garrettstimpson.ca" class="btn btn-primary">@gary23w</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    <hr />
+                    <div class="container">
+                      <form action="{{ url_for('admin.docs_route') }}" method="get">
+                        <button type="submit" class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn-primary mt-3 mb-3 w-100">DOCS</button>
+                      </form>
+                    </div>
+                    <hr />
+                    <div class="container">
+                      <button class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn-primary mt-3 mb-2 responsive-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasGary">
+                        Actions
+                      </button>
+                    </div>
+                    <hr />
+                    <div class="container">
+                      <form action="{{ url_for('admin.job_board_route') }}" method="get">
+                        <button type="submit" class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn-primary mt-3 mb-3 w-100">Boards</button>
+                      </form>
+                    </div>
+                    <hr />
+                    <div class="container">
+                      <button class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn btn-primary mt-3 mb-3 responsive-button" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">
+                        Add
+                      </button>
+                    </div>
+                    <hr />
+                  </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="row">
+          <nav class="navbar bg-white">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <div class="col-sm-8 blog-main">
+                  <div class="blog-post">
+                      <form class="mt-3 px-4 py-3 border border-dar" action="{{ url_for('admin.add_customer_route') }}" method="post">
+                      <h1 class="display-4 text-center mb-4">Add a Customer</h1>
+                      <div class="form-group">
+                          <label for="contract_number">Contract Number</label>
+                          <input type="text" class="form-control" id="contract_number" name="contract_number" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="salesman">Salesman</label>
+                        <select class="form-control" id="salesman" name="salesman" required>
+                            <option value="">-- Salesman --</option>
+                            {{ salesman_options }}
+                        </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" id="name" name="name" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="address">Address</label>
+                          <input type="text" class="form-control" id="address" name="address" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="date">Date</label>
+                          <input type="date" class="form-control" id="date" name="date" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="city">City</label>
+                          <input type="text" class="form-control" id="city" name="city" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="phone">Phone Number</label>
+                          <input type="text" class="form-control" id="phone" name="phone" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="email">Email Address</label>
+                          <input type="email" class="form-control" id="email" name="email" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea class="form-control" id="description" name="description" rows="3" maxlength="240" required></textarea>
+                      </div>
+                      <div class="form-group mb-4">
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="sendEmail" name="sendEmail">
+                              <label class="form-check-label" for="sendEmail">
+                                  Send Welcome Email
+                              </label>
+                          </div>
+                      </div>
+                      <div class="form-group mb-4">
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="mailList" name="mailList">
+                              <label class="form-check-label" for="mailList">
+                                  Add to mailing list.
+                              </label>
+                          </div>
+                      </div>
+                      <div class="form-group d-flex justify-content-center">
+                        <button type="submit" class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn-primary py-2 px-5">Add Customer</button>
+                    </div>
+                  </form>
+                </div>
+              </div><!-- /.blog-main -->
+            </div>
+          </nav>
+        </div>
+          <div class="row">
+                  <div class="col-sm-8 blog-sidebar">
+                      <div class="sidebar-module">
+                        <div class="row">
+                            <div class="mt-3">
+                              <div class="card">
+                                  <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+                                      <li class="nav-item" id="install-pwa" style="display: none;">
+                                          <button class="nav-link active install-pwa btn btn-link notification-button" onclick="installPWA()" id="install-tab" data-bs-toggle="tab" data-bs-target="#install" type="button" role="tab" aria-controls="install" aria-selected="true">
+                                              <h5>Install App</h5>
+                                          </button>
+                                      </li>
+                                      <li class="nav-item">
+                                          <button class="nav-link btn btn-link notification-button" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false" disabled>
+                                              <h5>Settings</h5>
+                                          </button>
+                                      </li>
+                                      <li class="nav-item">
+                                          <button class="click-note btn btn-link notification-shadow notification-button d-flex align-items-center justify-content-center px-4" type="button" data-bs-toggle="modal" data-bs-target="#notificationsModal">                                              
+                                          <h5>Notifications</h5>
+                                              <span class="badge rounded-pill bg-danger text-white notification-badge ml-3" id="get-count">{{ notification_count }}</span>
+                                          </button>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="notificationsModalLabel">Notifications</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="notifications list-group mb-3">
+                                                {% for notification in notifications %}
+                                                    <div class="card bg-light mb-3">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <h5 class="card-title">{{ notification.title }}</h5>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <a href="#" class="card-link">
+                                                                        <p class="card-text">{{ notification.notification }}</p>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{{ url_for('admin.delete_notification_route') }}" method="post" enctype="multipart/form-data">
+                                                <button type="submit" class="btn btn-primary" id="clear-note">CLEAR</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                          <hr />
+                        <div class="container p-3 border">
+                          <hr />
+                          <!-- Scoreboard module -->
+                          <div class="sidebar-module mt-3 p-3">
+                              <h4>Scoreboard</h4>
+                              <div class="table-responsive">
+                                  <table class="table">
+                                      <thead>
+                                          <tr>
+                                              <th scope="col">#</th>
+                                              <th scope="col">Username</th>                                              
+                                              <th scope="col">Call Sign</th>
+                                              <th scope="col">Score</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for user in scoreboard %}
+                                              <tr>
+                                                  <th scope="row">{{ loop.index }}</th>
+                                                  <td>{{ user.username }}</td>
+                                                  <td>{{ user.call_sign }}</td>
+                                                  <td>{{ user.score }}</td>
+                                              </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                          <hr />
+                            <h3 class="pl-3 blog-post-title mt-3">Welcome, {{ user }}!</h4>
+                            <hr />
+                            <h4 class="pl-3 blog-post-title mt-3 mb-3">System Info:</h4>
+                            <p class="pl-3 blog-post-meta"><b>Version:</b> {{ config.VERSION }}</p>
+                            <p class="pl-3 blog-post-meta"><b>IsAdmin:</b> {{ is_admin }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Email:</b> {{ email }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Name:</b> {{ config.NAME }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Short Name:</b> {{ config.SHORT_NAME }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Enable PWA:</b> {{ config.PWA }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Office Phone:</b> {{ config.SUPPORT_PHONE }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Support Email:</b> {{ config.SUPPORT_EMAIL }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Info Email:</b> {{ config.INFO_EMAIL }}</p>
+                            <p class="pl-3 blog-post-meta"><b>Email Hyperlink:</b> {{ config.EMAIL_HYPERLINK }}</p>
+                          </div> 
+                          <hr />
+                          <div class="sidebar-module mt-3 p-3">
+                            <h4>Quick links.</h4>
+                            <ol class="list-unstyled">
+                              <li><a href="logout">Logout</a></li>
+                              <li><a href="/admin/health">Health</a></li>
+                              <li><a href="{{ url_for('admin.customers') }}">Customers</a></li>
+                            </ol>
+                          </div>
+                          <hr />
+                          <div class="sidebar-module mt-3 p-3">
+                            <h4>Online Services.</h4>
+                            <ol class="list-unstyled">
+                                {{ services }}
+                            </ol>
+                          </div>
+                          <hr />
+                          <div class="sidebar-module mt-3 p-3">
+                            <h4>Contact Technical Support</h4>
+                            <p>Having trouble with our service? We're here to help!</p>
+                            <p>Click the button below to send us an email. We'll get back to you as soon as we can.</p>
+                            <a href="mailto:{{ technical_support }}" class="btn btn-primary float-right mb-3">Contact Support</a>
+                        </div>
+                      </div>
+                    <!-- More sidebar modules -->
+                  </div><!-- /.blog-sidebar -->
+                </div>
+            </div>
+          </div><!-- /.row -->
+        </div><!-- /.container -->
+        <footer class="footer">
+          <div class="container">
+            <hr />
+            <p class="text-center text-muted">gary23w &copy; 2024</p>
+          </div>
+        </footer>
+      <button id="fab" class="fab"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
+  </svg>
+</button>
+</body>
+</html>

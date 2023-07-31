@@ -1,0 +1,45 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer and Job Board</title>
+<link rel="icon" href="/static/icons/favicon.ico" type="image/x-icon">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="{{ url_for('admin.admin_static', filename='app/admin.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('admin.admin_static', filename='styles/admin.css') }}">
+<script src="{{ url_for('admin.admin_static', filename='app/jobs.js') }}"></script> 
+<link rel="stylesheet" href="{{ url_for('admin.admin_static', filename='styles/jobs.css') }}"> 
+<!-- Include jQuery UI for Drag and Drop -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!-- Include Moment.js for Date manipulation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<style>
+.card-header {
+  background-color: white !important;
+}
+.navbar-toggler {
+  border: none;
+  background: transparent;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.list-group-item {
+  padding: 0.25rem 0.25rem !important;
+}
+
+.customContainer1 {
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+</style>

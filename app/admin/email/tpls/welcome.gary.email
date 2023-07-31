@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .delv-head {
+        font-size: 24px;
+        line-height: 1.2;
+        text-transform: none;
+        font-weight: 800;
+        margin-bottom: 25px;
+      }
+
+      .delv-speach {
+        font-size: 18px;
+        line-height: 1.4;
+        text-transform: none;
+        font-weight: 400;
+      }
+
+      .delv-close {
+        font-size: 16px;
+        line-height: 1.6;
+        text-transform: none;
+        font-weight: 500;
+      }
+
+      .delv-comp {
+        font-size: 16px;
+        line-height: 1.6;
+        text-transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="{{ logo_main }}"
+        height="42"
+        width="112"
+      />
+      <p class="delv-head">Welcome to the {{ company_name }} family,</p>
+
+      <p class="delv-speach">
+        Thank you for choosing {{ company_name }} for your renovation project. We are
+        thrilled to have the opportunity to bring your vision to life.
+      </p>
+
+      <p class="delv-speach">
+        Our team of professionals is dedicated to delivering a seamless and
+        stress-free experience. You can expect high-quality workmanship,
+        attention to detail, and a commitment to excellence throughout the
+        process.
+      </p>
+
+      <p class="delv-speach">
+        We will keep you updated and involved every step of the way to ensure
+        the end result is exactly as you envisioned.
+      </p>
+
+      <p class="delv-speach">
+        Again, thank you for your trust. We are excited to start this journey
+        with you and to make your renovation dreams come true.
+      </p>
+
+      <p class="delv-close">Best regards,</p>
+      <p class="delv-close">{{ salesman }}</p>
+      <p class="delv-comp">{{ phone }}</p>
+    </div>
+  </body>
+</html>

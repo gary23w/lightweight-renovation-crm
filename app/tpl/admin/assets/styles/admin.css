@@ -1,0 +1,162 @@
+::-webkit-scrollbar {
+  width: 0.15em;
+  height: 0.15em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: slategray;
+}
+
+::-webkit-scrollbar-track {
+  background: #b8c0c8;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: 0.5em 0 0.75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 0.35em;
+}
+
+table th,
+table td {
+  padding: 0.625em;
+  text-align: center;
+  overflow: hidden;
+}
+
+table th {
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+table tr:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+.modal-body p {
+  white-space: normal;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+    overflow: hidden;
+  }
+
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* Change background color of datatable header */
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollHead .table {
+  background-color: #f00; /* red */
+}
+
+/* Change color of pagination buttons */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: #f00 !important; /* red */
+}
+
+/* Change color of current page button */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #fff !important; /* white */
+  background-color: #007bff !important; /* bootstrap primary */
+  border-color: #007bff !important; /* bootstrap primary */
+}
+
+/* Change color of hovering over pagination buttons */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #fff !important; /* white */
+  background-color: #0069d9 !important; /* bootstrap primary darker */
+  border-color: #0062cc !important; /* bootstrap primary darkest */
+}
+
+/* Remove bullet points */
+.dataTables_wrapper .dataTables_paginate ul.pagination {
+  list-style: none;
+  padding: 0;
+}
+
+/* Line up pagination buttons horizontally */
+.dataTables_wrapper .dataTables_paginate ul.pagination li {
+  display: inline-block;
+  margin: 5px;
+}
+
+#customerTable_filter {
+  margin-top: 25px !important;
+}
+
+#customerTable_length {
+  display: none !important;
+}
+
+.toast {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+}
