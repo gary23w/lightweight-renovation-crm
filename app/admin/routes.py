@@ -412,9 +412,16 @@ def quoting_tool_route() -> str:
     form_data = request.form
     form = QuoteForm()
 
-    # Populate the form data
-    for field in form:
-        field.data = form_data.get(field.name)
+    # Breakdown form and get data seperately
+    form.job_title.data = form_data.get('jobTitle')
+    form.job_description.data = form_data.get('jobDescription')
+    form.quote_amount.data = form_data.get('quoteAmount')
+    form.customer_name.data = form_data.get('customerName')
+    form.customer_address.data = form_data.get('customerAddress')
+    form.customer_email.data = form_data.get('customerEmail')
+    form.customer_phone.data = form_data.get('customerPhone')
+    form.your_email.data = form_data.get('yourEmail')
+    form.your_phone.data = form_data.get('yourPhone')
 
     # Combine notes into one field
     noteBox = [form_data[key] for key in form_data if 'note' in key.lower()]
