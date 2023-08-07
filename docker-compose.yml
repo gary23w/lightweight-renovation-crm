@@ -3,6 +3,7 @@ services:
   db:
     image: postgres:13.3-alpine
     restart: always
+    container_name: construction--db
     environment:
       POSTGRES_USER: USER
       POSTGRES_PASSWORD: PASSWORD
@@ -12,6 +13,8 @@ services:
   api:
     build: .
     command: python3 run.py
+    restart: always
+    container_name: construction--api
     volumes:
       - .:/app
     ports:
@@ -22,6 +25,9 @@ services:
       - db
     environment:
       DATABASE_HOST: db
+      DATABASE_USER: USER
+      DATABASE_PASSWORD: PASSWORD
+      DATABASE_NAME: DATABASE
 
 networks:
   api_db_network:

@@ -5,6 +5,7 @@ from sib_api_v3_sdk.rest import ApiException
 from sib_api_v3_sdk import Configuration, ApiClient
 import datetime
 
+# TODO: corey doing this?
 
 class EmailBuilder(ABC):
 

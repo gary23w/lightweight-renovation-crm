@@ -39,7 +39,8 @@ from .controllers import (
     delete_quote,
     resend_quote_email,
     build_service_list,
-    get_the_score,
+    get_sales_scoreboard,
+    check_if_siib_key_works,
     logout
 )
 from .models import (
@@ -98,18 +99,20 @@ def admin_route() -> str:
     This function builds service list, retrieves user information, notifications, and scoreboard data, 
     then returns a rendered template with these data.
     """
-    services = build_service_list(current_app.config['SERVICES'])              
+    services = build_service_list(current_app.config['SERVICES'])           
     username = current_user.id[0].upper() + current_user.id[1:]
     email = f"{current_user.id}{current_app.config['EMAIL_HYPERLINK']}"
     notifications, err = get_notifications(current_user.id)
     notification_count = len(notifications)
-    scoreboard_users = get_the_score(current_app.config['LEADER_BOARD_USERS'])
+    scoreboard_users = get_sales_scoreboard(current_app.config['LEADER_BOARD_USERS'])
 
     if notification_count == 0:
         notifications = [{"title": "No Notifications", "notification": "You have no notifications at this time."}]
+        notification_count = 1
 
-    # if err:
-    #     return handle_error(err)
+    if check_if_siib_key_works(current_app.config['SIB_API_KEY']) == False:
+        notifications.append({"title": "SIIB Key Error", "notification": "SIIB key is not working. Please check."})
+        notification_count += 1
 
     return render_admin_template(
         services=services, 
@@ -119,16 +122,6 @@ def admin_route() -> str:
         notification_count=notification_count, 
         scoreboard_users=scoreboard_users
     )
-
-@bp.route("/logout")
-@login_required
-def logout_route() -> Response:
-    """
-    Logout route handler function.
-    Logs out the current user and redirects to home route.
-    """
-    logout()
-    return redirect(url_for('user.home_route'))
 
 @bp.route('/docs', methods=['GET'])
 @login_required
@@ -471,3 +464,13 @@ def health() -> str:
     """
     get_health = check_health()
     return render_template('admin/views/redirect.gary', response=get_health, redirect="/admin")
+
+@bp.route("/logout")
+@login_required
+def logout_route() -> Response:
+    """
+    Logout route handler function.
+    Logs out the current user and redirects to home route.
+    """
+    logout()
+    return redirect(url_for('user.home_route'))
