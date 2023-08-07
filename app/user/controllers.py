@@ -38,6 +38,7 @@ def handle_login_request():
     if user_data and hmac.compare_digest(password, user_data['password']):
         user = User(username)
         login_user(user)
+        print("User logged in successfully.")
         return redirect(url_for('admin.admin_route'))
 
     return serve_login_page("Invalid username or password.")

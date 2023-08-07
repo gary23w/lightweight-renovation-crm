@@ -14,6 +14,24 @@ login_manager = LoginManager()
 limiter = Limiter(default_limits=["50 per hour"], key_func=get_remote_address)
 executor = Executor()
 
+keys_mapping = {
+    'VERSION': 'version',
+    'NAME': 'name',
+    'SHORT_NAME': 'short_name',
+    'LOGO': 'logo',
+    'BACKGROUND_IMAGE': 'background_image_login',
+    'LOGIN_STYLES': 'login_design',
+    'WEBSITE': 'website',
+    'PWA': 'enable_pwa',
+    'SUPPORT_EMAIL': 'support_email',
+    'INFO_EMAIL': 'info_email',
+    'SUPPORT_PHONE': 'office_phone',
+    'EMAIL_HYPERLINK': 'email_hyperlink',
+    'USERS': 'users',
+    'SIB_API_KEY': 'sib_api_key',
+    'SERVICES': 'services',
+}
+
 def load_config(config_path):
     if os.path.exists(config_path):
         try:
@@ -40,33 +58,21 @@ def create_app(config_class=Config):
     limiter.init_app(app)
     executor.init_app(app)
 
-    app.config['VERSION'] = config_data['version']
-    app.config['NAME'] = config_data['name']
-    app.config['SHORT_NAME'] = config_data['short_name']
-    app.config['LOGO'] = config_data['logo']
-    app.config['BACKGROUND_IMAGE'] = config_data['background_image_login']
-    app.config['LOGIN_STYLES'] = config_data['login_design']
-    app.config['WEBSITE'] = config_data['website']
-    app.config['PWA'] = config_data['enable_pwa']
-    app.config['SUPPORT_EMAIL'] = config_data['support_email']
-    app.config['INFO_EMAIL'] = config_data['info_email']
-    app.config['SUPPORT_PHONE'] = config_data['office_phone']
-    app.config['EMAIL_HYPERLINK'] = config_data['email_hyperlink']
-    app.config['USERS'] = config_data['users']
-    app.config['SIB_API_KEY'] = config_data['sib_api_key']
-    app.config['SERVICES'] = config_data['services']
+    for app_key, config_key in keys_mapping.items():
+        app.config[app_key] = config_data[config_key]
+
     phone_list = {}
-    salesman_options = ""
+    salesman_options = []
     leader_board_users = []
     for user in config_data['users']:
         phone_list[user['username']] = user['phone']
         username = user['username'][0].upper() + user['username'][1:]
-        salesman_options += "<option value=\"" + username + "\">" + username + "</option>"
-        opts = {"username": username, "call_sign": user['call_sign']}
-        leader_board_users.append(opts)
+        salesman_options.append(f'<option value="{username}">{username}</option>')
+        leader_board_users.append({"username": username, "call_sign": user['call_sign']})
+
     app.config['LEADER_BOARD_USERS'] = leader_board_users
     app.config['PHONE_LIST'] = phone_list
-    app.config['SALESMAN_OPTIONS'] = salesman_options
+    app.config['SALESMAN_OPTIONS'] = "".join(salesman_options)
 
     from app.admin import bp as admin_bp
     app.register_blueprint(admin_bp, url_prefix='/admin')

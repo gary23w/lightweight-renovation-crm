@@ -4,6 +4,7 @@
   "short_name": "Professional Services Inc.",
   "start_url": "/",
   "display": "standalone",
+  "sib_api_key": "PUT SENDINBLUEKEY HERE",
   "background_image_login": "https://probackgrounds.img/login-background.png",
   "logo": "https://prologos.img/logo.png",
   "login_design": {
@@ -53,7 +54,6 @@
       "admin": false
     }
   ],
-  "sib_api_key": "SEND IN BLUE API KEY",
   "services": [
     { "blog": "https://blog.professional_services_inc.com" },
     { "website": "https://www.professional_services_inc.com" }
