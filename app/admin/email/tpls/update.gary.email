@@ -53,7 +53,6 @@
         color: #555;
         line-height: 1.6;
         margin-bottom: 25px;
-        text-align: justify;
       }
 
       .quote-info,
@@ -68,7 +67,6 @@
         color: #555;
         line-height: 1.6;
         margin-bottom: 20px;
-        text-align: justify;
       }
 
       .delv-speach p {
@@ -111,20 +109,8 @@
       <hr
         style="border: 1px solid #ccc; margin-bottom: 20px; margin-top: 20px"
       />
-
-      <p class="delv-speach">
-        Calling all folks in distress! It's time for the legendary Garrett, cape
-        flowing and charm overflowing, to swoop in and save the day! Got pesky
-        tasks that won't quit bugging you? Confused like a squirrel in a maze?
-        Or just craving a good belly laugh? Look no further, 'cause I'm here to
-        be your superhero! When you're feeling stuck or blue, just holler my
-        name, and I'll be there faster than you can say'supercalifragilisticexpialidocious'!
-         And hey, don't fret;So, let's shake off those worries, slap on a grin, and let the
-        laughter flow! Garrett to the rescue - making your day brighter, one
-        joke at a time!
-      </p>
       <p class="delv-speach">😉 Keep up the fantastic work!</p>
-      <p class="delv-speach">Your friendly neighborhood Garrett 🦸‍♂️</p>
+      <p class="delv-speach">- Your friendly neighborhood Garrett 🦸‍♂️</p>
       <p class="delv-comp">{{ company_website }}</p>
       <p class="delv-comp">{{ info_email }}</p>
     </div>

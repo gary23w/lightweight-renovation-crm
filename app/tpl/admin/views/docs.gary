@@ -6,6 +6,13 @@
 <body>
 {% include 'admin/utils/flashed.gary' %}
 <div class="container mt-5">
+ <div class="container">
+  <hr/>
+    <nav class="navbar navbar-light">
+      <button class="btn btn-primary" style="width: 49%; margin-bottom: 15px;"><a style="color: white;" href="/admin">Dashboard</a></button>
+      <button id="downloadButton" class="btn btn-primary" style="width: 49%; margin-bottom: 15px;" disabled>Download</button>
+    </nav>
+  </div>
     <div class="accordion" id="endpointAccordion">
         <div class="card">
             <div class="card-header" id="loginHeader">

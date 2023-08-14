@@ -1,5 +1,5 @@
 {
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "name": "Professional Services Inc.",
   "short_name": "Professional Services Inc.",
   "start_url": "/",
@@ -16,7 +16,7 @@
   },
   "website": "https://professional_services_inc.com",
   "office_phone": "1-800-776-4521",
-  "enable_pwa": true,
+  "enable_pwa": false,
   "support_email": "support@professional_services_inc.com",
   "info_email": "info@professional_services_inc.com",
   "email_hyperlink": "@professional_services_inc.com",
