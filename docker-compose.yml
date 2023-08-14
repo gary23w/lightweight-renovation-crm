@@ -11,6 +11,7 @@ services:
     networks:
       - api_db_network
   api:
+    # image: gary23w/lfbuilders-rest-api:first
     build: .
     command: python3 run.py
     restart: always

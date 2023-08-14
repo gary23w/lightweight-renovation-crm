@@ -18,4 +18,6 @@
   <!-- Dashboard CSS -->
   <link rel="stylesheet" href="{{ url_for('admin.admin_static', filename='styles/dashboard.css') }}">
   <!-- PWA app -->
-  <script src="/static/app/pwa.js"></script>
+  {% if pwa_config_is_enabled %}
+    <script src="/static/app/pwa.js"></script>
+  {% endif %}

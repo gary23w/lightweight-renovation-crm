@@ -52,7 +52,6 @@
             color: #555;
             line-height: 1.6;
             margin-bottom: 25px;
-            text-align: justify;
         }
 
         .quote-info, .customer-info {
@@ -66,7 +65,6 @@
             color: #555;
             line-height: 1.6;
             margin-bottom: 20px;
-            text-align: justify;
         }
 
         .delv-speach p {

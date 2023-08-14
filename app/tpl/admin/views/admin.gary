@@ -136,7 +136,7 @@
                     </div>
                     <hr />
                     <div class="container">
-                      <button class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn btn-primary mt-3 mb-3 responsive-button" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">
+                      <button class="rounded shadow-sm bg-primary text-white w-100 text-center btn btn btn-primary mt-3 mb-3 responsive-button add-customer-btn" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">
                         Add
                       </button>
                     </div>
@@ -150,7 +150,13 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <div class="col-sm-8 blog-main">
                   <div class="blog-post">
-                      <form class="mt-3 px-4 py-3 border border-dar" action="{{ url_for('admin.add_customer_route') }}" method="post">
+                  <!-- close dropdown -->
+                    <div class="container" id="addCustomer">
+                    <button class="rounded shadow-sm bg-primary text-white mx-auto text-center btn btn btn-primary mb-3 responsive-button" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">
+                        Close
+                    </button>
+                    </div>
+                      <form class="mt-3 px-4 py-3 border border-success" action="{{ url_for('admin.add_customer_route') }}" method="post">
                       <h1 class="display-4 text-center mb-4">Add a Customer</h1>
                       <div class="form-group">
                           <label for="contract_number">Contract Number</label>
@@ -278,50 +284,128 @@
                                     </div>
                                 </div>
                             </div>
-                          </div>
-                          <hr />
+                        </div>
+                        <hr />
                         <div class="container p-3 border">
                           <hr />
                           <!-- Scoreboard module -->
-                          <div class="sidebar-module mt-3 p-3">
+                          <div class="sidebar-module">
                               <h4>Scoreboard</h4>
-                              <div class="table-responsive">
-                                  <table class="table">
-                                      <thead>
-                                          <tr>
-                                              <th scope="col">#</th>
-                                              <th scope="col">Username</th>                                              
-                                              <th scope="col">Call Sign</th>
-                                              <th scope="col">Score</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          {% for user in scoreboard %}
-                                              <tr>
-                                                  <th scope="row">{{ loop.index }}</th>
-                                                  <td>{{ user.username }}</td>
-                                                  <td>{{ user.call_sign }}</td>
-                                                  <td>{{ user.score }}</td>
-                                              </tr>
-                                          {% endfor %}
-                                      </tbody>
-                                  </table>
+                              <ul class="nav nav-tabs" id="scoreboardTabs" role="tablist">
+                                  <li class="nav-item" role="presentation">
+                                      <a class="nav-link active" id="scoreboard-tab" data-toggle="tab" href="#scoreboard" role="tab" aria-controls="scoreboard" aria-selected="true">Scoreboard</a>
+                                  </li>
+                                  <li class="nav-item" role="presentation">
+                                      <a class="nav-link" id="the-7-day-score-tab" data-toggle="tab" href="#the-7-day-score" role="tab" aria-controls="the-7-day-score" aria-selected="false">7 Day</a>
+                                  </li>
+                              </ul>
+                              <div class="tab-content" id="scoreboardTabsContent">
+                                  <div class="tab-pane fade show active" id="scoreboard" role="tabpanel" aria-labelledby="scoreboard-tab">
+                                      <div class="table-responsive">
+                                          <table class="table">
+                                              <thead>
+                                                  <tr>
+                                                      <th scope="col">#</th>
+                                                      <th scope="col">Username</th>
+                                                      <th scope="col">Call Sign</th>
+                                                      <th scope="col">Score</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  {% for user in scoreboard %}
+                                                      <tr>
+                                                          <th scope="row">{{ loop.index }}</th>
+                                                          <td>{{ user.username }}</td>
+                                                          <td>{{ user.call_sign }}</td>
+                                                          <td>{{ user.score }}</td>
+                                                      </tr>
+                                                  {% endfor %}
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                                  <div class="tab-pane fade" id="the-7-day-score" role="tabpanel" aria-labelledby="the-7-day-score-tab">
+                                      <div class="table-responsive">
+                                          <table class="table">
+                                              <thead>
+                                                  <tr>
+                                                      <th scope="col">#</th>
+                                                      <th scope="col">Username</th>
+                                                      <th scope="col">Call Sign</th>
+                                                      <th scope="col">Score</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  {% for user in the_7_day_score %}
+                                                      <tr>
+                                                          <th scope="row">{{ loop.index }}</th>
+                                                          <td>{{ user.username }}</td>
+                                                          <td>{{ user.call_sign }}</td>
+                                                          <td>{{ user.score }}</td>
+                                                      </tr>
+                                                  {% endfor %}
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
                               </div>
                           </div>
+                
                           <hr />
+                          <div class="container p-3 border">
                             <h3 class="pl-3 blog-post-title mt-3">Welcome, {{ user }}!</h4>
                             <hr />
-                            <h4 class="pl-3 blog-post-title mt-3 mb-3">System Info:</h4>
-                            <p class="pl-3 blog-post-meta"><b>Version:</b> {{ config.VERSION }}</p>
-                            <p class="pl-3 blog-post-meta"><b>IsAdmin:</b> {{ is_admin }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Email:</b> {{ email }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Name:</b> {{ config.NAME }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Short Name:</b> {{ config.SHORT_NAME }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Enable PWA:</b> {{ config.PWA }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Office Phone:</b> {{ config.SUPPORT_PHONE }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Support Email:</b> {{ config.SUPPORT_EMAIL }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Info Email:</b> {{ config.INFO_EMAIL }}</p>
-                            <p class="pl-3 blog-post-meta"><b>Email Hyperlink:</b> {{ config.EMAIL_HYPERLINK }}</p>
+                              <ul class="nav nav-tabs" id="infoTabs" role="tablist">
+                                  <li class="nav-item" role="presentation">
+                                      <a class="nav-link active" id="latest-job-tab" data-toggle="tab" href="#latest-job" role="tab" aria-controls="latest-job" aria-selected="false">Latest Job</a>
+                                  </li>
+                                  <li class="nav-item" role="presentation">
+                                      <a class="nav-link" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">System Info</a>
+                                  </li>
+                              </ul>
+                            <div class="tab-content" id="infoTabsContent">
+                              <div class="tab-pane fade show active" id="latest-job" role="tabpanel" aria-labelledby="latest-job-tab">
+                                      {% if job %}
+                                      <div class="card bg-light shadow-lg p-3 mb-5 bg-white rounded">
+                                        <div class="text-center bg-white">
+                                            <div class="h3 text-secondary"><b><u>Spotlight</u></b></div>
+                                        </div>
+                                          <div class="card-header text-center mt-3">
+                                              <div class="h4 text-secondary">{{ job.address }}</div>
+                                              <div class="h4 font-weight-bold"><b>Status:</b> {{ job.status }}</div>
+                                          </div>
+                                          <div class="card-body">
+                                              <h5 class="card-title font-weight-bold">Job Details:</h5>
+                                              <ul class="list-group list-group-flush base-data">
+                                                  <li class="list-group-item"><b>Contract Number:</b> {{ job.contract_number }}</li>
+                                                  <li class="list-group-item"><b>Salesman:</b> {{ job.salesman }}</li>
+                                                  <li class="list-group-item"><b>Customer:</b> {{ job.customer }}</li>
+                                                  <li class="list-group-item" data-date-complex="{{ job.date }}"><b>Date Posted:</b> {{ job.date }}</li>
+                                              </ul>
+                                              <hr />
+                                              <a href="/admin/job_board" class="btn btn-primary float-right">View Job</a>
+                                          </div>
+                                      </div>
+                                  {% else %}
+                                      <div class="alert alert-warning" role="alert">
+                                          No job available at the moment. Get to work!!!
+                                      </div>
+                                {% endif %}                          
+                              </div>
+                              <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+                                <h4 class="pl-3 blog-post-title mt-3 mb-3">System Info:</h4>
+                                <p class="pl-3 blog-post-meta"><b>Version:</b> {{ config.VERSION }}</p>
+                                <p class="pl-3 blog-post-meta"><b>IsAdmin:</b> {{ is_admin }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Email:</b> {{ email }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Name:</b> {{ config.NAME }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Short Name:</b> {{ config.SHORT_NAME }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Enable PWA:</b> {{ config.PWA }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Office Phone:</b> {{ config.SUPPORT_PHONE }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Support Email:</b> {{ config.SUPPORT_EMAIL }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Info Email:</b> {{ config.INFO_EMAIL }}</p>
+                                <p class="pl-3 blog-post-meta"><b>Email Hyperlink:</b> {{ config.EMAIL_HYPERLINK }}</p>
+                              </div>
+                            </div>
                           </div> 
                           <hr />
                           <div class="sidebar-module mt-3 p-3">
@@ -340,11 +424,12 @@
                             </ol>
                           </div>
                           <hr />
-                          <div class="sidebar-module mt-3 p-3">
+                          <div class="sidebar-module p-3">
                             <h4>Contact Technical Support</h4>
                             <p>Having trouble with our service? We're here to help!</p>
                             <p>Click the button below to send us an email. We'll get back to you as soon as we can.</p>
-                            <a href="mailto:{{ technical_support }}" class="btn btn-primary float-right mb-3">Contact Support</a>
+                            <a href="mailto:{{ technical_support }}" class="btn btn-primary">Contact Support</a>
+                         </div>
                         </div>
                       </div>
                     <!-- More sidebar modules -->

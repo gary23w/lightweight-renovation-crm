@@ -3,7 +3,7 @@ from flask_login import logout_user
 from sqlalchemy import inspect, or_, text
 from sqlalchemy.exc import SQLAlchemyError
 from app import db
-from app.admin.email.engine import send_email
+from app.admin.email.engine import email_builder_factory, EmailSender
 from app.models.customer import Customer
 from app.models.mailing import Mailing
 from app.models.notifications import Notifications
@@ -12,6 +12,7 @@ from app.models.quote import Quote
 from .models import QuoteForm, CustomerForm, JobForm, PromoForm
 import pandas as pd
 import os
+from datetime import datetime
 import requests
 from io import BytesIO
 from typing import Any, List, Tuple, Dict
@@ -36,7 +37,7 @@ def create_table() -> Tuple[Dict[str, Any], int]:
     except SQLAlchemyError as e:
         return {'message': 'An error occurred', 'error': str(e)}, HTTPStatus.INTERNAL_SERVER_ERROR
 
-def get_sales_scoreboard(scoreboard_users: List[Dict[str, str]]) -> List[Dict[str, Any]]:
+def get_sales_scoreboard(scoreboard_users: List[Dict[str, str]]):
     """
     Retrieves the sales scoreboard for the given users.
 
@@ -44,15 +45,23 @@ def get_sales_scoreboard(scoreboard_users: List[Dict[str, str]]) -> List[Dict[st
     :return: Sorted list of user scores.
     """
     the_score = []
+    the_7_day_score = []
+    seven_days_ago = (datetime.now() - pd.Timedelta(days=7))
     try:
         for user in scoreboard_users:
             score = len(Customer.query.filter_by(salesman=user['username']).all())
             obj = {"username": user['username'], "score": score, "call_sign": user['call_sign']}
             the_score.append(obj)
+
+            seven_days_ago_str = seven_days_ago.strftime('%Y-%m-%d') 
+            score_7 = len(Customer.query.filter_by(salesman=user['username']).filter(Customer.date >= seven_days_ago_str).all())
+            obj_7 = {"username": user['username'], "score": score_7, "call_sign": user['call_sign']}
+            the_7_day_score.append(obj_7)
         the_score = sorted(the_score, key=lambda k: k['score'], reverse=True)
+        the_7_day_score = sorted(the_7_day_score, key=lambda k: k['score'], reverse=True)
     except SQLAlchemyError as e:
         flash("The tables do not exist. Please create them first.")
-    return the_score
+    return [the_score, the_7_day_score]
 
 def delete_table(headers: Dict[str, str]) -> Tuple[Dict[str, str], int]:
     """
@@ -62,7 +71,7 @@ def delete_table(headers: Dict[str, str]) -> Tuple[Dict[str, str], int]:
     :return: Message and HTTP status code.
     """
     Authorization = headers.get('Authorization')
-    if Authorization == "Basic superbigadminwithbigadminideas:imnotthatbright": # Consider using an environment variable here
+    if Authorization == "Basic getalife:yesyou": # Consider using an environment variable here
         try:
             db.drop_all()
             return {'message': 'Table deleted'}, HTTPStatus.OK
@@ -139,7 +148,9 @@ def add_customer(form, welcome_email: bool = False, mailList: bool = False) -> T
         db.session.commit()
         conf = None
         if welcome_email:
-            conf = send_email(new_customer.email, "welcome", new_customer.salesman)
+            builder = email_builder_factory('welcome')
+            email_sender = EmailSender(builder)
+            conf = email_sender.send_email(new_customer.email, "welcome", new_customer.salesman)
         return {'message': 'Customer added', 'status': str(conf)}, HTTPStatus.OK
     except SQLAlchemyError as e:
         db.session.rollback()
@@ -231,7 +242,9 @@ def send_promo_email(salesman: str, data: Dict[str, str]) -> None:
 
         customers = Mailing.query.all()
         for customer in customers:
-            send_email(customer.email, "mailing", salesman, data['emailBody'], data['emailSubject'])
+            builder = email_builder_factory('mailing')
+            email_sender = EmailSender(builder)
+            conf = email_sender.send_email(customer.email, "mailing", salesman, data['emailBody'], data['emailSubject'])
     except SQLAlchemyError:
         pass
 
@@ -388,6 +401,21 @@ def get_jobs(salesman: str, admin: bool) -> Tuple[List[Jobs], int]:
     except SQLAlchemyError as e:
         return {'message': 'An error occurred', 'error': str(e)}, HTTPStatus.INTERNAL_SERVER_ERROR
 
+def get_the_latest_job() -> Tuple[List[Jobs], int]:
+    """
+    Retrieves the latest job.
+
+    :return: The latest job.
+    """
+    try:
+        if 'jobs' not in inspect(db.engine).get_table_names():
+            return {'message': 'An error occurred', 'error': 'The table is not initialized. Please click the "Initialize" button on the main page.'}, HTTPStatus.INTERNAL_SERVER_ERROR
+
+        job = Jobs.query.order_by(Jobs.id.desc()).first()
+        return job, HTTPStatus.OK
+    except SQLAlchemyError as e:
+        return {'message': 'An error occurred', 'error': str(e)}, HTTPStatus.INTERNAL_SERVER_ERROR
+
 def edit_job(data: dict, id_: int) -> Tuple[Dict[str, str], int]:
     """
     Edits a specific job based on ID.
@@ -424,7 +452,9 @@ def delete_job(id: int, send_exit_email: bool, email: str = None) -> Tuple[Dict[
     """
     conf = None
     if send_exit_email and email:
-        conf = send_email(email, 'exit')
+        builder = email_builder_factory('exit')
+        email_sender = EmailSender(builder)
+        email_sender.send_email(email, 'exit')
     job = Jobs.query.get(id)
     customer_ = Customer(
         contract_number=job.contract_number,
@@ -474,8 +504,10 @@ def send_quote_email(data, notes: str) -> Tuple[Dict[str, str], int]:
     )
     db.session.add(quote)
     db.session.commit()
-    send_email(quote.customer_email, 'quote', data=quote, notes=notes)
-    return {'message': 'Quote email sent'}, HTTPStatus.OK
+    builder = email_builder_factory('quote')
+    email_sender = EmailSender(builder)
+    conf = email_sender.send_email(quote.customer_email, 'quote', data=quote, notes=notes)
+    return {'message': 'Quote email sent', 'code': str(conf)}, HTTPStatus.OK
 
 def get_quotes() -> Tuple[List[Quote], int]:
     """
@@ -518,8 +550,10 @@ def resend_quote_email(id: int) -> Tuple[Dict[str, str], int]:
     try:
         quote = Quote.query.get(id)
         notes = quote.notes.split('<>')
-        conf = send_email(quote.customer_email, 'quote', data=quote, notes=notes)
-        return {'message': 'Quote sent', 'email': str(conf)}, HTTPStatus.OK
+        builder = email_builder_factory('quote')
+        email_sender = EmailSender(builder)
+        conf = email_sender.send_email(quote.customer_email, 'quote', data=quote, notes=notes)
+        return {'message': 'Quote sent. Again!', 'email': str(conf)}, HTTPStatus.OK
     except SQLAlchemyError as e:
         return {'message': 'An error occurred', 'error': str(e)}, HTTPStatus.INTERNAL_SERVER_ERROR
     
