@@ -28,9 +28,10 @@ Key Features:
 - Updates to improve efficiency and functionality.
 
 Would love to collaborate on this with another person.
+
 <ul>
 <li>-> possible go or rust version in the near future.</li>
-<li>-> *python prototype.</li>
+<li>-> ** python prototype.</li>
 </ul>
 
 **reach me on Discord: @gary23w**
@@ -120,7 +121,7 @@ Modify the values to align with your conventions.
 5. Assuming Docker and Docker Compose are installed correctly, run the build script (`build.sh`) found in the root directory of this project. This script builds the Docker images and starts the Docker containers.
 6. Access the REST API at `http://localhost:8080/`.
 7. Once inside the UI, init the database tables.
-![image](https://github.com/gary23w/lfbuilders-rest-api/assets/61893883/e1f4f562-cb7f-4126-9b01-0e2eca952df4)
+   ![image](https://github.com/gary23w/lfbuilders-rest-api/assets/61893883/e1f4f562-cb7f-4126-9b01-0e2eca952df4)
 
 If all else fails, simply execute `docker-compose up -d`.
 
