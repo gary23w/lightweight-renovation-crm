@@ -32,6 +32,7 @@ from .controllers import (
     delete_mail_promo,
     get_jobs,
     add_job,
+    get_the_latest_job,
     edit_job,
     delete_job,
     send_quote_email,
@@ -43,6 +44,7 @@ from .controllers import (
     check_if_siib_key_works,
     logout
 )
+from .service import get_jobs_scheduler
 from .models import (
     CustomerForm,
     JobForm,
@@ -72,7 +74,7 @@ def handle_error(error: Exception) -> str:
     return str(error)
 
 def render_admin_template(services: List[Dict[str, Any]], username: str, email: str, notifications: List[Dict[str, Any]], 
-                          notification_count: int, scoreboard_users: List[Dict[str, Any]]) -> str:
+                          notification_count: int, scoreboard_users: List[Dict[str, Any]], the_7_day_score: List[Dict[str, Any]], job: Dict[str, Any]) -> str:
     """
     This function takes in various parameters required by the template and renders the template.
     """
@@ -87,8 +89,11 @@ def render_admin_template(services: List[Dict[str, Any]], username: str, email: 
         is_admin=current_user.admin, 
         services=services, 
         scoreboard=scoreboard_users, 
+        the_7_day_score=the_7_day_score,
+        job = job,
         technical_support=current_app.config['SUPPORT_EMAIL'], 
-        config=current_app.config
+        config=current_app.config,
+        pwa_config_is_enabled = current_app.config['PWA']
     )
 
 @bp.route('/')
@@ -102,13 +107,25 @@ def admin_route() -> str:
     services = build_service_list(current_app.config['SERVICES'])           
     username = current_user.id[0].upper() + current_user.id[1:]
     email = f"{current_user.id}{current_app.config['EMAIL_HYPERLINK']}"
-    notifications, err = get_notifications(current_user.id)
+
+    notifications, status_code = get_notifications(current_user.id)
+
+    if status_code != HTTPStatus.OK:
+        flash(f"Error: {notifications}")
+        notifications = []
+
     notification_count = len(notifications)
-    scoreboard_users = get_sales_scoreboard(current_app.config['LEADER_BOARD_USERS'])
+    
+    scoreboard_users, the_7_day_score = get_sales_scoreboard(current_app.config['LEADER_BOARD_USERS'])
+    
+    job, status_code = get_the_latest_job()
+
+    if status_code != HTTPStatus.OK:
+        flash(f"Error: {job}")
+        job = None
 
     if notification_count == 0:
         notifications = [{"title": "No Notifications", "notification": "You have no notifications at this time."}]
-        notification_count = 1
 
     if check_if_siib_key_works(current_app.config['SIB_API_KEY']) == False:
         notifications.append({"title": "SIIB Key Error", "notification": "SIIB key is not working. Please check."})
@@ -120,7 +137,9 @@ def admin_route() -> str:
         email=email, 
         notifications=notifications, 
         notification_count=notification_count, 
-        scoreboard_users=scoreboard_users
+        scoreboard_users=scoreboard_users,
+        the_7_day_score=the_7_day_score,
+        job=job
     )
 
 @bp.route('/docs', methods=['GET'])
@@ -365,6 +384,17 @@ def delete_job_route() -> str:
     msg, status_code = delete_job(customer_id, send_exit_email, email)
     return render_template('admin/views/redirect.gary', response=msg, redirect="/admin/job_board")
 
+@bp.route('/send_job_updates', methods=['POST'])
+@login_required
+def send_job_updates_route() -> str:
+    """
+    Send job updates route handler function.
+    """
+    if not current_user.admin:
+        return render_template('admin/views/redirect.gary', response="You must be an admin to send job updates.", redirect="/admin/job_board")
+    get_jobs_scheduler()
+    return render_template('admin/views/redirect.gary', response="Job updates are being sent.", redirect="/admin/job_board")
+
 @bp.route('/download_jobs', methods=['GET'])
 @login_required
 def download_jobs_route() -> Tuple[Any, int]:
@@ -372,7 +402,7 @@ def download_jobs_route() -> Tuple[Any, int]:
     Download jobs route handler function.
     """
     salesman = current_user.id[0].upper() + current_user.id[1:]
-    jobs, status_code = get_jobs(salesman)
+    jobs, status_code = get_jobs(salesman, current_user.admin)
     if status_code != HTTPStatus.OK:
         return {"error": "Error getting jobs."}, HTTPStatus.INTERNAL_SERVER_ERROR
 
@@ -452,8 +482,6 @@ def resend_quote_route(id: int) -> str:
     Resend a specific quote by id.
     """
     response, status_code = resend_quote_email(id)
-    if status_code != HTTPStatus.OK:
-        return render_template('admin/views/redirect.gary', response=response, redirect="/admin")
     return render_template('admin/views/redirect.gary', response=response, redirect="/admin")
 
 @bp.route('/health', methods=['GET'])

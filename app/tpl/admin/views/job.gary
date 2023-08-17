@@ -42,16 +42,18 @@
                     <div class="container customContainer1 mt-3 mb-3">
                          <div class="card-header d-flex flex-column flex-md-row justify-content-around align-items-center">
                             <a href="/admin" class="btn btn-primary w-100 p-3 m-3">Back</a>
-                            <h4 class="text-center flex-grow-1 mb-0 w-100"></h4>
+                            <form action="{{ url_for('admin.send_job_updates_route') }}" method="post" class="w-100 p-3 m-3">
+                                <button class="btn btn-success w-100 p-3">Send Job Updates</button>
+                            </form>
                             <a href="logout" class="btn btn-danger w-100 p-3 m-3">Logout</a>
                         </div>
 
                         <div class="card-header d-flex flex-column flex-md-row justify-content-around align-items-center">
                             <button class="p-3 rounded shadow-sm bg-info text-white w-100 text-center btn btn-info m-3" data-toggle="modal" data-target="#modeModal"><b>Mode:</b> {{ mode }}</button>
                             <button class="p-3 rounded shadow-sm bg-info text-white w-100 text-center btn btn-info m-3" id="downloadCurrentJobs"><b>Download Jobs</b></button>
-                            <button class="add-job p-3 rounded shadow-sm bg-info text-white w-100 text-center m-3" role="button" data-toggle="collapse" data-target="#collapseADD" aria-expanded="true" aria-controls="collapseADD" style="cursor: pointer;">
+                            <a class="add-job p-3 rounded shadow-sm bg-info text-white w-100 text-center m-3" href="#addJobForm" role="button" data-toggle="collapse" data-target="#collapseADD" aria-expanded="true" aria-controls="collapseADD" style="cursor: pointer;">
                                 Add Job
-                            </button>
+                            </a>
                         </div>
                         
                     </div>
@@ -60,11 +62,8 @@
         </div>
     </div>
 </div>
-<div class="container d-flex justify-content-end align-items-center mb-3 mt-3">
-    <button id="sortJobsButton" class="btn btn-primary">Sort Jobs</button>
-</div>
 <div class="container">
-    <div id="collapseADD" class="collapse" aria-labelledby="headingADDJOB" data-parent="#accordionADD">
+    <div id="collapseADD" class="collapse border border-success mb-5" aria-labelledby="headingADDJOB" data-parent="#accordionADD" data-bs-spy="scroll" data-bs-target="#navbarSupportedContent">
         <form id="addJobForm" action="{{ url_for('admin.add_job_route') }}" method="post">
             <div class="container-fluid">
             <div class="row mt-3"><div class="col-12"><input type="text" class="form-control" name="contract_number" placeholder="Contract Number" required></div></div>
@@ -102,6 +101,10 @@
         </div>
         </form>
     </div> 
+    <hr />
+    <div class="container d-flex justify-content-end align-items-center mb-3 mt-3">
+        <button id="sortJobsButton" class="btn btn-primary">Sort Jobs</button>
+    </div>
     <div class="row job-box">
         {% for job in jobs %}
         <div class="col-md-4 job-case"> 

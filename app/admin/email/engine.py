@@ -5,8 +5,6 @@ from sib_api_v3_sdk.rest import ApiException
 from sib_api_v3_sdk import Configuration, ApiClient
 import datetime
 
-# TODO: corey doing this?
-
 class EmailBuilder(ABC):
 
     @abstractmethod
@@ -19,20 +17,11 @@ class UpdateAdminEmailBuilder(EmailBuilder):
         html_content = open('app/admin/email/tpls/update.gary.email').read()
         job_payload = ""
         for job in data:
-            job_payload += f"""
-            <div class="customer-info">
-                <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
-                <h3 class="delv-h3">Job ID: {job.id}</h3>
-                <p class="delv-head">Customer: {job.customer}</p>
-                <p class="delv-comp">Salesman: {job.salesman}</p>
-                <p class="delv-comp">Address: {job.address}, {job.city}</p>
-                <p class="delv-comp">Phone: {job.phone}</p>
-                <p class="delv-desc">Job Description: {job.description}</p>
-                <p class="delv-comp">Status: {job.status}</p>
-                <p class="delv-list-item">Notes: {job.notes}</p>
-                <hr style="border: 1px solid #ccc; margin-bottom: 20px;">
-            </div>
-            """
+            payload_notes = job.notes.split("\n")
+            notes = ""
+            for note in payload_notes:
+                notes += f"<p class=\"delv-list-item\">* {note}</p>"
+            job_payload += open('app/admin/email/snippets/admin.gary.snippet').read().replace("{{ id }}", str(job.id)).replace("{{ customer }}", job.customer).replace("{{ salesman }}", job.salesman).replace("{{ address }}", job.address).replace("{{ city }}", job.city).replace("{{ phone }}", job.phone).replace("{{ description }}", job.description).replace("{{ status }}", job.status).replace("{{ notes }}", notes)
         html_content = html_content.replace("{{ job_updates }}", job_payload)
 
         return html_content
@@ -150,9 +139,3 @@ class EmailSender:
             return api_response
         except ApiException as e:
             return e
-
-#TODO: expand this design pattern across the entire app. this is a hack to get it working for now.
-def send_email(to, type_, salesman="admin", content_=None, subject_=None, notes=None, data=None):
-    builder = email_builder_factory(type_)
-    email_sender = EmailSender(builder)
-    email_sender.send_email(to, type_, salesman, content_, subject_, notes, data)
