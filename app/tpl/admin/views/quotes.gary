@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% include 'admin/head/head_filter.gary' %}
+{% include 'admin/head/head_main.gary' %}
 </head>
 <body class="da-screen">
 {% include 'admin/utils/flashed.gary' %}
@@ -13,27 +13,39 @@
       <button class="btn btn-primary" style="width: 49%; margin-bottom: 15px;"><a style="color: white;" href="/admin">Dashboard</a></button>
       <button id="btn btn-primary" class="btn btn-primary" style="width: 49%; margin-bottom: 15px;"><a style="color: white;" href="/admin/quoting_tool">Tool</a></button>
     </nav>
-  </div>  
-    <div class="container">
-        {% for quote in quotes %}
-        <div class="card my-3">
-            <div class="card-body">
-                <h5 class="card-title">{{ quote.job_title }}</h5>
-                <hr />
-                <p class="card-text">{{ quote.job_description }}</p>
-                <p class="card-text">Quote Amount: {{ quote.quote_amount }}</p>
-                <p class="card-text">Customer Name: {{ quote.customer_name }}</p>
-                <p class="card-text">Customer Address: {{ quote.customer_address }}</p>
-                <p class="card-text">Customer Email: <a href="mailto:{{ quote.customer_email }}">{{ quote.customer_email }}</a></p>
-                <p class="card-text">Customer Phone: <a href="tel:{{ quote.customer_phone }}">{{ quote.customer_phone }}</a></p>
-                <p class="card-text">Your Email: <a href="mailto:{{ quote.your_email }}">{{ quote.your_email }}</a></p>
-                <p class="card-text">Your Phone: <a href="tel:{{ quote.your_phone }}">{{ quote.your_phone }}</a></p>
-                <p class="card-text">Notes: {{ quote.notes }}</p>
-                 <button class="btn btn-primary float-left mt-5" onclick="resendEmail({{ quote.id }})">Resend Email</button>
-                 <button class="btn btn-danger float-right mt-5" onclick="deleteQuote({{ quote.id }})">Delete</button>
+  </div> 
+      <div class="wrap">
+        <div class="container mt-5">
+            <div class="card shadow-lg">
+                <div class="card-body"> 
+                  <div class="container">
+                      {% for quote in quotes %}
+                      <div class="card my-3">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ quote.job_title }}</h5>
+                              <hr />
+                              <p class="card-text">{{ quote.job_description }}</p>
+                              <p class="card-text">Quote Amount: {{ quote.quote_amount }}</p>
+                              <p class="card-text">Customer Name: {{ quote.customer_name }}</p>
+                              <p class="card-text">Customer Address: {{ quote.customer_address }}</p>
+                              <p class="card-text">Customer Email: <a href="mailto:{{ quote.customer_email }}">{{ quote.customer_email }}</a></p>
+                              <p class="card-text">Customer Phone: <a href="tel:{{ quote.customer_phone }}">{{ quote.customer_phone }}</a></p>
+                              <p class="card-text">Your Email: <a href="mailto:{{ quote.your_email }}">{{ quote.your_email }}</a></p>
+                              <p class="card-text">Your Phone: <a href="tel:{{ quote.your_phone }}">{{ quote.your_phone }}</a></p>
+                              <div class="border border-primary rounded p-3">
+                              <p class="card-text">Notes: {{ quote.notes }}</p>
+                              </div>
+                              {% if is_admin %}
+                                <button class="btn btn-primary float-left mt-5" onclick="resendEmail({{ quote.id }})">Resend Email</button>
+                                <button class="btn btn-danger float-right mt-5" onclick="deleteQuote({{ quote.id }})">Delete</button>
+                              {% endif %}
+                          </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+                </div>
             </div>
         </div>
-        {% endfor %}
     </div>
   </div>
 </div>

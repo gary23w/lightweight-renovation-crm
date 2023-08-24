@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e  # stop on error
 
-CONTAINER_NAME="backend_api_1"
+CONTAINER_NAME="construction--api"
 IMAGE_NAME="backend_api"
 
 # Function to check if a command succeeded

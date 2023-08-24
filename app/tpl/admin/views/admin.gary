@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-12 mb-3">
                         <form action="{{ url_for('admin.get_quote_list') }}" method="get" enctype="multipart/form-data">
-                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Old Quotes</button>
+                            <button type="submit" class="rounded shadow-sm bg-info text-white w-100 text-center btn btn-info">Archived Quotes</button>
                         </form>
                     </div>
                     <div class="col-12 mb-3">

@@ -71,7 +71,7 @@ def delete_table(headers: Dict[str, str]) -> Tuple[Dict[str, str], int]:
     :return: Message and HTTP status code.
     """
     Authorization = headers.get('Authorization')
-    if Authorization == "Basic getalife:yesyou": # Consider using an environment variable here
+    if Authorization == "Basic superlfadmin:removemydata": # Consider using an environment variable here
         try:
             db.drop_all()
             return {'message': 'Table deleted'}, HTTPStatus.OK
