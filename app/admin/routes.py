@@ -52,7 +52,7 @@ from .models import (
     PromoForm
 )
 from typing import Any, Tuple, Dict, List
-import io, csv
+import io, csv, locale
 
 
 @bp.route('/static/<path:filename>')
@@ -439,6 +439,10 @@ def quoting_tool_route() -> str:
     form.job_title.data = form_data.get('jobTitle')
     form.job_description.data = form_data.get('jobDescription')
     form.quote_amount.data = form_data.get('quoteAmount')
+    # TODO: Fix this
+    # if form.quote_amount.data is not None:
+    #     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    #     form.quote_amount.data = str(locale.currency(float(form.quote_amount.data), grouping=True))
     form.customer_name.data = form_data.get('customerName')
     form.customer_address.data = form_data.get('customerAddress')
     form.customer_email.data = form_data.get('customerEmail')
@@ -460,9 +464,11 @@ def get_quote_list() -> str:
     Get the list of all quotes.
     """
     quote_list, status_code = get_quotes()
+    for quote in quote_list:
+        quote.notes = "".join(f'<p class="delv-list-item">* {note}</p>' for note in quote.notes.split("<>"))
     if status_code != HTTPStatus.OK:
         return render_template('admin/views/redirect.gary', response=quote_list, redirect="/admin")
-    return render_template('admin/views/quotes.gary', quotes=quote_list)
+    return render_template('admin/views/quotes.gary', quotes=quote_list, is_admin=current_user.admin)
 
 @bp.route('/delete_quote/<int:id>', methods=['POST'])
 @login_required

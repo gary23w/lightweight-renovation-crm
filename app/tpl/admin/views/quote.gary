@@ -54,57 +54,61 @@
     {% endwith %}
     <div class="wrap">
         <div class="container mt-5">
-            <form action="{{ url_for('admin.quoting_tool_route') }}" method="POST" class="mt-4">
-                <div class="form-group">
-                    <label for="jobTitle">Job Title:</label>
-                    <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <form action="{{ url_for('admin.quoting_tool_route') }}" method="POST" class="mt-4">
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title:</label>
+                            <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="jobDescription">Job Description:</label>
+                            <textarea class="form-control" id="jobDescription" name="jobDescription" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="quoteAmount">Quote Amount:</label>
+                            <input type="number" class="form-control" id="quoteAmount" name="quoteAmount" required>
+                        </div>
+                        <div id="notes">
+                            <div class="form-group note-group">
+                                <label for="note1">Note 1:</label>
+                                <textarea class="form-control note" id="note1" name="notes[]"></textarea>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button type="button" id="addNote" class="btn btn-info mb-3">Add Note</button>
+                            <button type="button" id="deleteNote" class="btn btn-danger mb-3 ml-2">Delete Note</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerName">Customer Name:</label>
+                            <input type="text" class="form-control" id="customerName" name="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAddress">Customer Address:</label>
+                            <input type="text" class="form-control" id="customerAddress" name="customerAddress" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="customerEmail">Customer Email:</label>
+                            <input type="email" class="form-control" id="customerEmail" name="customerEmail" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="customerPhone">Customer Phone:</label>
+                            <input type="phone" class="form-control" id="customerPhone" name="customerPhone" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="yourEmail">Your Email:</label>
+                            <input type="email" class="form-control" id="yourEmail" name="yourEmail" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="yourPhone">Your Phone:</label>
+                            <input type="phone" class="form-control" id="yourPhone" name="yourPhone" required>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-end mt-5 mb-5">
+                            <button type="submit" class="btn btn-primary">Generate and Send Quote</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="jobDescription">Job Description:</label>
-                    <textarea class="form-control" id="jobDescription" name="jobDescription" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="quoteAmount">Quote Amount:</label>
-                    <input type="number" class="form-control" id="quoteAmount" name="quoteAmount" required>
-                </div>
-                <div id="notes">
-                    <div class="form-group note-group">
-                        <label for="note1">Note 1:</label>
-                        <textarea class="form-control note" id="note1" name="notes[]"></textarea>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <button type="button" id="addNote" class="btn btn-info mb-3">Add Note</button>
-                    <button type="button" id="deleteNote" class="btn btn-danger mb-3 ml-2">Delete Note</button>
-                </div>
-                <div class="form-group">
-                    <label for="customerName">Customer Name:</label>
-                    <input type="text" class="form-control" id="customerName" name="customerName" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerAddress">Customer Address:</label>
-                    <input type="text" class="form-control" id="customerAddress" name="customerAddress" required>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="customerEmail">Customer Email:</label>
-                    <input type="email" class="form-control" id="customerEmail" name="customerEmail" required>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="customerPhone">Customer Phone:</label>
-                    <input type="phone" class="form-control" id="customerPhone" name="customerPhone" required>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="yourEmail">Your Email:</label>
-                    <input type="email" class="form-control" id="yourEmail" name="yourEmail" required>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="yourPhone">Your Phone:</label>
-                    <input type="phone" class="form-control" id="yourPhone" name="yourPhone" required>
-                </div>
-                <div class="d-flex justify-content-end align-items-end mt-5 mb-5">
-                    <button type="submit" class="btn btn-primary">Generate and Send Quote</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
     </div>
