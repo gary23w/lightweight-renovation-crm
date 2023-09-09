@@ -28,7 +28,7 @@
     <div class="col-sm-8 blog-main">
       <div id="accordionADD" class="d-flex justify-content-between align-items-center mt-3 mb-3">
         <a href="/admin" class="btn btn-secondary mt-3">Back</a>
-             <button class="p-3 rounded shadow-sm bg-primary text-white w-100 text-center m-3" role="button" data-toggle="collapse" data-target="#collapseADD" aria-expanded="true" aria-controls="collapseADD" style="cursor: pointer;">
+             <button class="p-3 rounded shadow-sm bg-primary text-white w-80 text-center m-3" role="button" data-toggle="collapse" data-target="#collapseADD" aria-expanded="true" aria-controls="collapseADD" style="cursor: pointer;">
                                 Add Recipient
               </button>
         <button type="button" class="btn btn-primary mt-3" id="templateAdd">Template</button>
@@ -43,7 +43,13 @@
               </div>
           </form>
       </div>        
-      <div class="wrap mt-5 border p-3">
+    </div>
+  </div>
+  <hr />
+  <div class="d-flex justify-content-center align-items-center">
+  <div class="card shadow-lg">
+  <div class="card-body">
+        <div class="wrap mt-5 border p-3">
         <div class="d-flex justify-content-center align-items-center">
           <p><b>Send promo emails to the mail list.</b></p>
         </div>
@@ -62,12 +68,8 @@
           </div>
         </form>
       </div>
-    </div>
-  </div>
-  <hr />
-  <div class="d-flex justify-content-center align-items-center">
-  <div class="table-responsive wrap col-sm-8 mt-3 mb-3 border p-3" id="mainTable">
-        <div class="table-wrapper">
+  <div class="table-responsive wrap w-100 mt-3 mb-3 border p-3" id="mainTable">
+        <div class="table-wrapper w-100">
             <table id="customerTable">
               <thead>
                 <tr>
@@ -90,5 +92,7 @@
       </div>
   </div>
   </div>
+  </div>
+</div>
 </body>
 </html>

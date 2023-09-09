@@ -75,8 +75,10 @@
         </div>
       </div>
       {% else %}
+        <div class="card shadow-lg">
+        <div class="card-body">
         <div class="container">
-          <form id="filterForm" action="" method="GET" class="mb-3">
+          <form id="filterForm" action="" method="POST" class="mb-3">
               <div class="row mb-3">
                   <div class="col-12">
                   <label for="id" class="form-label">ID</label>
@@ -131,6 +133,8 @@
                   </div>
               </div>
           </form>
+        </div>
+        </div>
         </div>
       {% endif %}
     </div>

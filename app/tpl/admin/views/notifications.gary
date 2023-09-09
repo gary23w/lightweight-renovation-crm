@@ -10,6 +10,8 @@
             <div class="col-sm-8 blog-main">
                 <a href="/admin" class="btn btn-secondary mt-3">Back</a>
                 <hr />
+                <div class="card shadow-lg">
+                <div class="card-body">
                 <div class="wrap mt-5">
                     <h1 class="text-center">Send Dashboard Notifications</h1>
                     <center><p>Remind other salesman about upcoming information.</p></center>
@@ -32,6 +34,8 @@
                         <hr />
                         <button type="submit" class="btn btn-primary mt-3 float-right">Send Notification</button>
                     </form>
+                </div>
+                </div>
                 </div>
             </div>
         </div>
