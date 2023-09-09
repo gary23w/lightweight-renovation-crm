@@ -217,7 +217,7 @@ def single_table() -> Any:
         response, status_code = get_customers_based_on_params(request.args)
         if status_code == HTTPStatus.OK:
             return render_template('admin/views/single.gary', customers=response)
-    return jsonify(response), status_code
+    return render_template('admin/views/single.gary', customers=response)
  
 @bp.route('/sms_promotion', methods=['GET'])
 @login_required

@@ -24,10 +24,14 @@
 <body>
     <div class="container mt-5">
         <div class="form-group mt-3">
-            <label for="server-response"><h1>Server Response:</h1></label>
+          <div class="card shadow-lg">
+            <div class="card-body">
+            <label for="server-response"><h1 class="text-uppercase font-weight-light">Server Response:</h1></label>
             <div class="alert alert-success" role="alert">
                 <!-- Change the class to language-json -->
                 <pre><code id="server-response" class="language-json">{{ response }}</code></pre>
+            </div>
+            </div>
             </div>
         </div>
             <a href="{% if redirect == '' %}/admin{% else %}{{ redirect }}{% endif %}" class="btn btn-secondary float-right">Back</a>
