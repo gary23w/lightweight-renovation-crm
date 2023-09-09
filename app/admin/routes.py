@@ -12,6 +12,7 @@ from flask import (
 from flask_login import login_required, current_user
 from werkzeug.wrappers import Response
 from http import HTTPStatus
+from markdown import markdown
 from app import executor
 from . import bp
 from .controllers import (
@@ -149,8 +150,12 @@ def docs_route() -> str:
     Docs route handler function.
     This function renders the docs template.
     """
-    return render_template('admin/views/docs.gary')
+    print("RAWR?")
+    with open("docs.md", "r") as f:
+        content = f.read()
 
+    content_html = markdown(content)
+    return render_template('admin/views/docs.gary', content=content_html)
 
 @bp.route('/add_customer', methods=['POST'])
 @login_required

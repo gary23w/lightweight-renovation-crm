@@ -7,6 +7,7 @@ Flask-Limiter
 flask_login
 flask_executor
 flask_sqlalchemy
+markdown
 werkzeug
 pandas
 xlrd
